@@ -1,0 +1,18 @@
+<mat-card class="tag-management mat-elevation-z2">
+  <div class="tag-management-header">
+    <h1>标签管理</h1>
+  </div>
+
+  <h2>新建标签</h2>
+  <form class="new-tag-form">
+    <mat-form-field>
+      <input type="input" matInput placeholder="标签名称" [formControl]="newTagName" [readonly]="loading" autocomplete="off">
+    </mat-form-field>
+    <button mat-icon-button color="primary" [disabled]="loading" (click)="submit()"><mat-icon>add</mat-icon></button>
+  </form>
+
+  <h2>标签列表({{ tags.length > 0 ? tags.length : '无' }})</h2>
+  <div class="tag-list">
+    <oj-tag-editor *ngFor="let tag of tags" [tag]="tag" class="tag-editor" (deleted)="removeTag($event)"></oj-tag-editor>
+  </div>
+</mat-card>

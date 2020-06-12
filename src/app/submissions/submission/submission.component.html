@@ -1,0 +1,78 @@
+<mat-card class="submission-search-panel mat-elevation-z2">
+  <oj-submission-search-panel></oj-submission-search-panel>
+</mat-card>
+
+<mat-card class="submission mat-elevation-z2">
+  <div class="above-submission">
+    <mat-slide-toggle color="primary" class="only-myself-slide-toggle">仅看自己</mat-slide-toggle>
+  </div>
+
+  <table mat-table [dataSource]="data" class="submission-table">
+    <ng-container matColumnDef="problem-id">
+      <th mat-header-cell *matHeaderCellDef>题目编号</th>
+      <td mat-cell *matCellDef="let submission;">{{ submission.problem.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="problem-title">
+      <th mat-header-cell *matHeaderCellDef>题目标题</th>
+      <td mat-cell *matCellDef="let submission;">
+        <a [routerLink]="['/problems', submission.problem.id]" class="link">{{ submission.problem.title }}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="submitted-by">
+      <th mat-header-cell *matHeaderCellDef>提交者</th>
+      <td mat-cell *matCellDef="let submission;">
+        <a [routerLink]="['/users', submission.user.id]" class="link">{{ submission.user.name }}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>状态</th>
+      <td mat-cell *matCellDef="let submission;"
+        class="submission-status"
+        [class.success]="Status.isSuccess(submission.status)"
+        [class.warn]="Status.isWarn(submission.status)"
+        [class.error]="Status.isError(submission.status)"
+      >
+        <span [routerLink]="['/submissions', submission.id]">{{ submission.status }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="score">
+      <th mat-header-cell *matHeaderCellDef>分数</th>
+      <td mat-cell *matCellDef="let submission;">{{ submission.score !== null ? submission.score : 'N/A' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="time-usage">
+      <th mat-header-cell *matHeaderCellDef>时间</th>
+      <td mat-cell *matCellDef="let submission;">{{ submission.timeUsage !== null ? submission.timeUsage + ' ms' : 'N/A' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="memory-usage">
+      <th mat-header-cell *matHeaderCellDef>内存</th>
+      <td mat-cell *matCellDef="let submission;">{{ submission.memoryUsage !== null ? (submission.memoryUsage * 1024 | filesize: { standard: 'iec' }) : 'N/A' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lang">
+      <th mat-header-cell *matHeaderCellDef>语言</th>
+      <td mat-cell *matCellDef="let submission;">{{ submission.lang }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="submitted-at">
+      <th mat-header-cell *matHeaderCellDef>提交时间</th>
+      <td mat-cell *matCellDef="let submission;">
+        <span matTooltip="{{ submission.submittedAt | amLocale: 'zh-cn' | amDateFormat: 'YYYY-MM-DD HH:mm' }}" matTooltipPosition="above">
+          {{ submission.submittedAt | amLocale: 'zh-CN' | amTimeAgo }}
+        </span>
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-card-actions>
+    <mat-paginator #paginator showFirstLastButtons [pageIndex]="pageIndex" [length]="totalCount" [pageSize]="10"></mat-paginator>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,24 @@
+div[class$="-field"] {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+input,
+select {
+  height: 36px;
+  padding: 5px 5px 5px 10px;
+  margin-right: 15px;
+  font-size: 16px;
+}
+
+#problem-input {
+  max-width: 110px;
+}
+
+#author-input {
+  max-width: 130px;
+}
+
+.search-btn {
+  vertical-align: top;
+}

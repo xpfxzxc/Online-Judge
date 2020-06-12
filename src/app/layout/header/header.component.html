@@ -1,0 +1,59 @@
+<mat-progress-bar mode="determinate" [value]="loader.progress$ | async"></mat-progress-bar>
+<mat-toolbar id="header" class="mat-elevation-z4">
+  <mat-toolbar-row class="container">
+    <div class="logo">
+      <button mat-button routerLink="/"><h1>Online Judge</h1></button>
+    </div>
+    <div class="left-side-navbar">
+      <a mat-button routerLink="/problems" routerLinkActive="active"><mat-icon>storage</mat-icon> 题库</a>
+      <a mat-button routerLinkActive="active"><mat-icon>forum</mat-icon> 讨论</a>
+      <a mat-button routerLink="/submissions" routerLinkActive="active"><mat-icon>list</mat-icon> 评测</a>
+      <a mat-button routerLink="/contest" routerLinkActive="active"><mat-icon>emoji_events</mat-icon> 比赛</a>
+      <a mat-button routerLink="/ranking" routerLinkActive="active"><mat-icon>equalizer</mat-icon> 排名</a>
+      <a mat-button routerLinkActive="active"><mat-icon>help</mat-icon> 帮助</a>
+    </div>
+
+    <span class="remaining-space"></span>
+
+    <div class="right-side-navbar">
+      <ng-container *ngIf="(authService.loggedUser$ | async) as user; else loginOrSignUp">
+        <mat-menu class="mat-elevation-z8" #userProfileMenu="matMenu" xPosition="before">
+          <button mat-menu-item>
+            <mat-icon>person</mat-icon>
+            <span>{{ user.name }}</span>
+          </button>
+
+          <button mat-menu-item>
+            <mat-icon>edit</mat-icon>
+            <span>修改资料</span>
+          </button>
+          
+          <ng-container>
+            <mat-divider></mat-divider>
+
+            <button mat-menu-item routerLink="/tags/management">
+              <mat-icon>inbox</mat-icon>
+              <span>标签管理</span>
+            </button>
+          </ng-container>
+
+          <mat-divider></mat-divider>
+
+          <button mat-menu-item (click)="authService.logout()">
+            <mat-icon>logout</mat-icon>
+            <span>登出</span>
+          </button>
+        </mat-menu>
+
+        <button mat-icon-button [matMenuTriggerFor]="userProfileMenu">
+          <img ngxGravatar [email]="user.email" fallback="mp" size="32" [round]="true">
+        </button>
+      </ng-container>
+
+      <ng-template #loginOrSignUp>
+        <a mat-button routerLink="/login">登录</a>
+        <a mat-button routerLink="/sign-up" color="primary">注册</a>
+      </ng-template>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

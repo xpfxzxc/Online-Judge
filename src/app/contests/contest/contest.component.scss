@@ -1,0 +1,64 @@
+.contest {
+  padding: 32px 40px;
+}
+
+.contest-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  margin: 0;
+}
+
+select {
+  width: 120px;
+  height: 32px;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.contest-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 20px 0;
+  border-bottom: 1px solid #ececec;
+}
+
+.contest-title {
+  display: inline-block;
+  font-size: 1.27em;
+  margin: 20px 0;
+}
+
+.contest-info {
+  li {
+    display: inline;
+    padding-right: 12px;
+  }
+
+  .mat-icon {
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
+  }
+}
+
+.contest-actions {
+  button {
+    width: 120px;
+    height: 40px;
+  }
+}

@@ -1,0 +1,97 @@
+<div class="left-side">
+  <mat-card class="problem-detail mat-elevation-z2">
+    <div class="problem-detail-title-box">
+      <h1># {{ problem.id }} {{ problem.title }}</h1>
+      <mat-button-toggle-group>
+        <mat-button-toggle value="thumbUp">
+          <mat-icon color="primary">thumb_up_alt</mat-icon>
+          {{ problem.positiveCount }}
+        </mat-button-toggle>
+        <mat-button-toggle value="thumbDown">
+          <mat-icon color="warn">thumb_down_alt</mat-icon>
+          {{ problem.negativeCount }}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <markdown [data]="markdown1" katex></markdown>
+
+    <ng-container *ngFor="let sample of problem.samples; let i = index;">
+      <h2>样例 {{ i + 1 }}</h2>
+      <div class="sample">
+        <div class="sample-input">
+          <div class="sample-input-header">
+            <h3>样例输入 {{ i + 1 }}</h3>
+            <oj-copy-to-clipboard-btn [content]="sample.input"></oj-copy-to-clipboard-btn>
+          </div>
+          <pre>{{ sample.input }}</pre>
+        </div>
+        <div class="sample-output">
+          <h3>样例输出 {{ i + 1 }}</h3>
+          <pre>{{ sample.output }}</pre>
+        </div>
+      </div>
+      <div *ngIf="sample.explanation" class="sample-explanation">
+        <h3>样例解释 {{ i + 1 }}</h3>
+        <markdown [data]="sample.explanation" katex></markdown>
+      </div>
+    </ng-container>
+
+    <markdown [data]="markdown2" katex></markdown>
+  </mat-card>
+
+  <mat-card class="code-editor-panel mat-elevation-z2">
+    <label>编程语言:</label>
+    <select class="language-select">
+      <option *ngFor="let lang of ['cpp']" value="{{ lang }}">{{ lang }}</option>
+    </select>
+
+    <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+
+    <button mat-raised-button color="primary" class="submit-btn" [disabled]="submitting" (click)="submit()"><mat-icon>edit</mat-icon> 提交评测</button>
+
+  </mat-card>
+</div>
+
+<div class="right-side" *ngIf="!isRightSidePanelHidden">
+  <mat-card class="problem-actions mat-elevation-z0 floating-effect">
+    <mat-action-list color="primary">
+      <button mat-list-item [routerLink]="['/problems', problem.id, 'edit']"><mat-icon color="primary">edit</mat-icon> 编辑问题</button>
+      <mat-divider></mat-divider>
+      <button mat-list-item><mat-icon color="primary">send</mat-icon> 提交代码</button>
+      <button mat-list-item><mat-icon color="primary">forum</mat-icon> 讨论区</button>
+    </mat-action-list>
+  </mat-card>
+  <mat-card class="problem-info mat-elevation-z0 floating-effect">
+    <h3>信息</h3>
+    <dl class="mat-body metadata">
+      <dt>难度</dt>
+      <dd>{{ problem.difficulty }}</dd>
+      <dt>内存限制</dt>
+      <dd>{{ problem.memoryLimit ? (problem.memoryLimit * 1024 | filesize: { standard: 'iec' }) : 'N/A' }}</dd>
+      <dt>时间限制</dt>
+      <dd>{{ problem.timeLimit ? problem.timeLimit + ' ms' : '-' }}</dd>
+      <dt>提交数</dt>
+      <dd><a routerLink="" class="link">{{ problem.submissionCount }}</a></dd>
+      <ng-container *ngIf="authService.isLoggedIn$ | async">
+        <dt>我的提交数</dt>
+        <dd><a routerLink="" class="link">{{ problem.mySubmissionCount }}</a></dd>
+      </ng-container>
+      <dt>已通过</dt>
+      <dd>{{ problem.acceptedCount }}</dd>
+      <dt>通过率</dt>
+      <dd>{{ problem.submissionCount > 0 ? ((problem.acceptedCount / problem.submissionCount) | percent:'1.2-2') : 'N/A' }}</dd>
+      <dt>提供者</dt>
+      <dd><a [routerLink]="['/users', problem.author.id]" class="link">{{ problem.author.name }}</a></dd>
+      <dt>状态</dt>
+      <dd>{{ problem.status === 'public' ? '公开' : '隐藏' }}</dd>
+    </dl>
+  </mat-card>
+  <mat-card class="problem-tags mat-elevation-z0 floating-effect">
+    <h3>标签</h3>
+    <span class="mat-body text-btn" *ngIf="!areProblemTagsShowed" (click)="areProblemTagsShowed = true;">显示</span>
+    <mat-chip-list *ngIf="areProblemTagsShowed && problem.tags.length > 0">
+      <mat-chip *ngFor="let tag of problem.tags" [selectable]="false" disableRipple>{{ tag.name }}</mat-chip>
+    </mat-chip-list>
+  </mat-card>
+</div>

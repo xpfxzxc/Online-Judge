@@ -1,0 +1,36 @@
+:host {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.mat-progress-bar {
+  height: 2px;
+}
+
+.mat-toolbar,
+.mat-toolbar-row {
+  min-height: 56px;
+  max-height: 56px;
+}
+
+#header {
+  background-color: white;
+}
+
+.left-side-navbar {
+  .mat-icon {
+    font-size: 20px;
+  }
+
+  .mat-button.active {
+    background-color: #efefef;
+  }
+}
+
+.right-side-navbar {
+  button {
+    margin-left: 20px;
+  }
+}

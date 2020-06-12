@@ -1,0 +1,35 @@
+<mat-card class="contest mat-elevation-z2">
+  <div class="contest-header">
+    <h1>所有比赛</h1>
+    <div class="contest-filter">
+      <label for="contest-status-select">显示：</label>
+      <select>
+        <option value="all">全部</option>
+        <option value="not started">未开始</option>
+        <option value="in progress">进行中</option>
+        <option value="end">已结束</option>
+      </select>
+    </div>
+  </div>
+
+  <ul class="contest-list">
+    <li class="contest-item" *ngFor="let contest of contests">
+      <div>
+        <a [routerLink]="['/contest', contest.id]" class="contest-title link">{{ contest.title }}</a>
+        <ul class="contest-info">
+          <li class="mat-caption"><mat-icon>calendar_today</mat-icon> {{ contest.startingTime | amLocale:"zh-cn" | amDateFormat: 'YYYY-MM-DD HH:mm' }}</li>
+          <li class="mat-caption"><mat-icon>access_time</mat-icon> {{ (contest.endTime - contest.startingTime) / 3600000 | number: '1.1-1' }} 小时</li>
+          <li class="mat-caption"><mat-icon>people</mat-icon> {{ contest.participantCount }}</li>
+        </ul>
+      </div>
+      <div class="contest-actions">
+        <ng-container *ngIf="now$ | async as now;">
+          <button mat-stroked-button color="primary" *ngIf="now < contest.startingTime">查 看</button>
+          <button mat-raised-button color="primary" *ngIf="now >= contest.startingTime && now < contest.endTime && hasRegistered">开 始</button>
+          <button mat-stroked-button color="accent" *ngIf="!hasRegistered && (now >= contest.startingTime && now < contest.endTime)">进 行 中</button>
+          <button mat-stroked-button *ngIf="now >= contest.endTime">成 绩 表</button>
+        </ng-container>
+      </div>
+    </li>
+  </ul>
+</mat-card>

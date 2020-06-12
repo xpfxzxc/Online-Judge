@@ -1,0 +1,27 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+.mat-card {
+  width: 400px;
+  margin-top: 50px;
+}
+
+.mat-card-title {
+  margin: 20px 0;
+}
+
+.mat-card-content {
+  padding: 25px 25px;
+}
+
+.mat-card-actions {
+  display: flex;
+  padding: 15px 25px;
+
+  a {
+    color: #999;
+    text-decoration: none;
+  }
+}

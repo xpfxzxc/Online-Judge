@@ -1,0 +1,26 @@
+<div class="placeholder-top"></div>
+<mat-card class="mat-elevation-z2">
+  <mat-card-title class="text-center">{{ login ? '登录' : '注册' }}</mat-card-title>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    <router-outlet></router-outlet>
+  </mat-card-content>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-actions>
+    <ng-container *ngIf="login; else signUpAction">
+      <a href="#" class="mat-small">忘记密码?</a>
+      <span class="remaining-space"></span>
+      <a routerLink="/sign-up" class="mat-small">注册</a>
+    </ng-container>
+
+    <ng-template #signUpAction>
+      <div class="box-center">
+        <span class="mat-small">已有账号？</span><a routerLink="/login" class="mat-small">登录</a>
+      </div>
+    </ng-template>
+  </mat-card-actions>
+</mat-card>

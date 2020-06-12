@@ -1,0 +1,37 @@
+<mat-card class="contest-scoreboard mat-elevation-z2">
+  <h1><a [routerLink]="['/contest', 10]" class="link">Online Judge 每周比赛 10</a> 成绩表</h1>
+  <table mat-table [dataSource]="dataSource" class="contest-score-table">
+    <ng-container matColumnDef="rank">
+      <th mat-header-cell *matHeaderCellDef>名次</th>
+      <td mat-cell *matCellDef="let row;">{{ row.rank }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="user-name">
+      <th mat-header-cell *matHeaderCellDef>用户名</th>
+      <td mat-cell *matCellDef="let row;"><a [routerLink]="['/users', row.user.id]" class="link">{{ row.user.name }}</a></td>
+    </ng-container>
+
+    <ng-container matColumnDef="total-score">
+      <th mat-header-cell *matHeaderCellDef>总分</th>
+      <td mat-cell *matCellDef="let row;">
+        <span>{{ row.totalScore }}</span>
+        <span class="mat-caption">({{ row.lastSubmittedAt ? ((row.lastSubmittedAt - now) | amFromUtc | amDateFormat: 'HH:mm:ss') : '00:00:00' }})</span>
+      </td>
+    </ng-container>
+
+    <ng-container *ngFor="let columnName of problemColumnNames; let i = index;" matColumnDef="{{ columnName }}">
+      <th mat-header-cell *matHeaderCellDef>#{{ columnName }}</th>
+      <td mat-cell *matCellDef="let row;">
+        <span>{{ row.allLastSubmissions[i] ? row.allLastSubmissions[i].score : 0 }}</span>
+        <span class="mat-caption">({{ row.allLastSubmissions[i] ? ((row.lastSubmittedAt - now) | amFromUtc | amDateFormat: 'HH:mm:ss') : '00:00:00' }})</span>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-card-actions>
+    <mat-paginator #paginator showFirstLastButtons [pageSize]="15"></mat-paginator>
+  </mat-card-actions>
+</mat-card>

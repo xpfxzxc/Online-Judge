@@ -1,0 +1,14 @@
+{
+  "overwrite": true,
+  "schema": "src/app/generated/schema.gql",
+  "documents": "src/document.gql",
+  "generates": {
+    "src/app/generated/graphql.ts": {
+      "plugins": [
+        "typescript",
+        "typescript-operations",
+        "typescript-apollo-angular"
+      ]
+    }
+  }
+}

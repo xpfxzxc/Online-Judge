@@ -1,1 +1,204 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$online-judge-primary: mat-palette($mat-blue-grey);
+$online-judge-accent: mat-palette($mat-grey);
+
+// The warn palette is optional (defaults to red).
+$online-judge-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$online-judge-theme: mat-light-theme(
+  $online-judge-primary,
+  $online-judge-accent,
+  $online-judge-warn
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($online-judge-theme);
+
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+body {
+  position: relative;
+  min-height: 100%;
+  margin: 0;
+  padding-top: 58px;
+  padding-bottom: 64px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+.metadata {
+  overflow: auto;
+
+  dt,
+  dd {
+    float: left;
+    padding-bottom: 8px;
+  }
+
+  dt {
+    width: 40%;
+  }
+
+  dd {
+    width: 60%;
+    margin: 0;
+  }
+}
+
+.mat-header-cell {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.mat-color-green-500 {
+  color: map-get($mat-green, 500);
+}
+
+.mat-color-blue-800 {
+  color: map-get($mat-blue, 800);
+}
+
+.mat-color-grey-500 {
+  color: map-get($mat-grey, 500);
+}
+
+.mat-table-border-left-color {
+  border-left-color: map-get($online-judge-accent, 300);
+}
+
+.mat-table-border-right-color {
+  border-right-color: map-get($online-judge-accent, 300);
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.remaining-space {
+  flex-grow: 1;
+}
+
+.box-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.color-white {
+  color: white;
+}
+
+.display-none {
+  display: none;
+}
+
+.spinner-btn {
+  position: relative;
+  display: inline-block;
+
+  .spinner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.text-btn {
+  @extend .mat-color-blue-800;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link {
+  @extend .text-btn;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.left-side {
+  flex: 1 1 0;
+}
+
+.right-side {
+  width: 250px;
+  margin-left: 25px;
+
+  .mat-card {
+    &[class*="-actions"] {
+      padding-left: 0;
+      padding-right: 0;
+
+      .mat-icon {
+        padding: 0 40px 0 10px;
+      }
+    }
+  }
+}
+
+.floating-effect {
+  box-shadow: 0 4px 12px 3px rgba(0, 0, 0, 0.09),
+    0 2px 3px 1px rgba(0, 0, 0, 0.06);
+}
+
+.test-point-status,
+.submission-status {
+  &.success {
+    color: map-get($mat-green, A700);
+  }
+
+  &.warn {
+    color: map-get($mat-yellow, A700);
+  }
+
+  &.error {
+    color: map-get($mat-red, 500);
+  }
+}
+
+@import "./toastr.scss";

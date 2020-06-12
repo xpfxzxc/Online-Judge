@@ -1,0 +1,294 @@
+mutation SignUp($name: String!, $email: String!, $password: String!) {
+  sign_up(input: { name: $name, email: $email, password: $password })
+}
+
+mutation Login($name: String!, $password: String!) {
+  login(input: { name: $name, password: $password }) {
+    token
+    user {
+      id
+      name
+      email
+      role
+    }
+  }
+}
+
+query Tags {
+  tag {
+    id
+    name
+  }
+}
+
+mutation InsertTag($name: String!) {
+  insert_tag(objects: { name: $name }) {
+    returning {
+      id
+      name
+    }
+  }
+}
+
+mutation DeleteTag($id: Int!) {
+  delete_tag(where: { id: { _eq: $id } }) {
+    affected_rows
+  }
+}
+
+mutation UpdateTag($id: Int!, $name: String!) {
+  update_tag(where: { id: { _eq: $id } }, _set: { name: $name }) {
+    affected_rows
+  }
+}
+
+mutation InsertProblem(
+  $background: String
+  $description: String!
+  $difficulty: Int!
+  $input_format: String!
+  $output_format: String!
+  $note: String
+  $samples: String
+  $status: String!
+  $title: String!
+  $problem_tags: [problem_tag_insert_input!]!
+) {
+  insert_problem(
+    objects: {
+      background: $background
+      description: $description
+      difficulty: $difficulty
+      input_format: $input_format
+      note: $note
+      output_format: $output_format
+      samples: $samples
+      status: $status
+      title: $title
+      problem_tags: { data: $problem_tags }
+    }
+  ) {
+    returning {
+      id
+    }
+  }
+}
+
+query ProblemEditData($id: Int!) {
+  problem_by_pk(id: $id) {
+    background
+    description
+    difficulty
+    id
+    input_format
+    output_format
+    note
+    time_limit
+    memory_limit
+    samples
+    status
+    title
+    tags {
+      id
+      name
+    }
+  }
+  tag {
+    id
+    name
+  }
+}
+
+mutation DeleteProblem($id: Int!) {
+  delete_problem(where: { id: { _eq: $id } }) {
+    affected_rows
+  }
+}
+
+mutation UpdateProblem(
+  $id: Int!
+  $background: String
+  $description: String!
+  $difficulty: Int!
+  $input_format: String!
+  $output_format: String!
+  $note: String
+  $samples: String
+  $status: String!
+  $title: String!
+) {
+  update_problem(
+    where: { id: { _eq: $id } }
+    _set: {
+      id: $id
+      background: $background
+      description: $description
+      difficulty: $difficulty
+      input_format: $input_format
+      note: $note
+      output_format: $output_format
+      samples: $samples
+      status: $status
+      title: $title
+    }
+  ) {
+    returning {
+      id
+    }
+  }
+}
+
+query ProblemDetail($id: Int!, $user_id: Int!) {
+  problem_by_pk(id: $id) {
+    background
+    description
+    difficulty
+    id
+    input_format
+    note
+    output_format
+    samples
+    status
+    title
+    tags {
+      id
+      name
+    }
+    time_limit
+    memory_limit
+    accepted_count
+    submission_count
+    positive_count
+    negative_count
+    author {
+      id
+      name
+    }
+    accepted_submissions_aggregate: submissions_aggregate(
+      where: { status: { _eq: "Accepted" } }
+    ) {
+      aggregate {
+        count
+      }
+    }
+    submissions_aggregate {
+      aggregate {
+        count
+      }
+    }
+    my_submissions_aggregate: submissions_aggregate(
+      where: { user_id: { _eq: $user_id } }
+    ) {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+
+query ProblemSet($offset: Int!) {
+  problem_aggregate {
+    aggregate {
+      total_count: count
+    }
+  }
+  problem(offset: $offset, limit: 15, order_by: { id: asc }) {
+    id
+    title
+    tags {
+      id
+      name
+    }
+    positive_count
+    negative_count
+    difficulty
+    accepted_submissions_aggregate: submissions_aggregate(
+      where: { status: { _eq: "Accepted" } }
+    ) {
+      aggregate {
+        count
+      }
+    }
+    submissions_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+
+query Submissions($offset: Int!) {
+  submission_aggregate {
+    aggregate {
+      total_count: count
+    }
+  }
+  submission(offset: $offset, limit: 10, order_by: { created_at: desc }) {
+    id
+    problem {
+      id
+      title
+    }
+    user {
+      id
+      name
+    }
+    status
+    score
+    time_usage
+    memory_usage
+    code {
+      lang
+    }
+    created_at
+  }
+}
+
+query SubmissionDetail($id: uuid!) {
+  submission_by_pk(id: $id) {
+    id
+    status
+    test_points
+    code {
+      lang
+      content
+    }
+    user {
+      id
+      name
+    }
+    problem {
+      id
+      title
+    }
+    created_at
+    score
+    time_usage
+    memory_usage
+  }
+}
+
+mutation SubmitCode($problem_id: ID!, $lang: String!, $content: String!) {
+  submit_code(
+    input: { problem_id: $problem_id, lang: $lang, content: $content }
+  ) {
+    submission_id
+  }
+}
+
+subscription SubmissionPartialDetail($id: uuid!) {
+  submission_by_pk(id: $id) {
+    status
+    test_points
+    score
+    time_usage
+    memory_usage
+  }
+}
+
+mutation UploadTestSet($problem_id: Int!, $base64str: String!) {
+  upload_test_set(base64str: $base64str, problem_id: $problem_id) {
+    time_limit
+    memory_limit
+  }
+}

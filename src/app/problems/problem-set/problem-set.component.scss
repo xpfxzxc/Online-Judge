@@ -1,0 +1,119 @@
+.problem-set {
+  margin-top: 20px;
+}
+
+.problem-set-search-panel {
+  padding-top: 32px;
+  padding-left: 40px;
+  padding-bottom: 32px;
+}
+
+.above-problem-table {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+
+  .problemset-actions {
+    display: flex;
+    align-items: center;
+
+    .mat-slide-toggle {
+      margin-right: 20px;
+    }
+  }
+}
+
+.problem-table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.mat-header-cell.mat-column-completion,
+.mat-cell.mat-column-completion {
+  padding-left: 18px;
+  padding-right: 20px;
+}
+
+.mat-cell.mat-column-completion {
+  width: 20px;
+}
+
+.mat-header-cell.mat-column-id,
+.mat-cell.mat-column-id {
+  padding-left: 20px;
+  border-left-width: 1px;
+  border-left-style: solid;
+}
+
+.mat-cell.mat-column-id {
+  width: 90px;
+  padding-left: 0px;
+  padding-right: 10px;
+  text-align: center;
+}
+
+.mat-header-cell.mat-column-positive-count,
+.mat-cell.mat-column-positive-count {
+  padding-left: 20px;
+  border-left-width: 1px;
+  border-left-style: solid;
+}
+
+.mat-cell.mat-column-positive-count {
+  width: 95px;
+  padding-left: 0px;
+  padding-right: 5px;
+  text-align: center;
+}
+
+.mat-cell.mat-column-submission-count {
+  width: 80px;
+  padding-right: 20px;
+  text-align: center;
+}
+
+.mat-header-cell.mat-column-acRate {
+  padding-left: 15px;
+}
+
+.mat-cell.mat-column-acRate {
+  width: 80px;
+  padding-right: 10px;
+  text-align: center;
+}
+
+.mat-header-cell.mat-column-difficulty,
+.mat-cell.mat-column-difficulty {
+  padding-left: 20px;
+  padding-right: 18px;
+  border-left-width: 1px;
+  border-left-style: solid;
+}
+
+.mat-cell.mat-column-difficulty {
+  width: 90px;
+  padding-left: 0px;
+  padding-right: 15px;
+  text-align: center;
+}
+
+.mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+[svgicon] {
+  width: 14px;
+  height: 14px;
+}
+
+.table-cell-title-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .mat-chip:last-child {
+    margin-right: 12px;
+  }
+}

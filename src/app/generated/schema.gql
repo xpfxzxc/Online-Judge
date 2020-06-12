@@ -1,0 +1,3004 @@
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type code {
+  content: String!
+  id: uuid!
+  lang: String!
+}
+
+type code_aggregate {
+  aggregate: code_aggregate_fields
+  nodes: [code!]!
+}
+
+type code_aggregate_fields {
+  count(columns: [code_select_column!], distinct: Boolean): Int
+  max: code_max_fields
+  min: code_min_fields
+}
+
+input code_aggregate_order_by {
+  count: order_by
+  max: code_max_order_by
+  min: code_min_order_by
+}
+
+input code_arr_rel_insert_input {
+  data: [code_insert_input!]!
+  on_conflict: code_on_conflict
+}
+
+input code_bool_exp {
+  _and: [code_bool_exp]
+  _not: code_bool_exp
+  _or: [code_bool_exp]
+  content: String_comparison_exp
+  id: uuid_comparison_exp
+  lang: String_comparison_exp
+}
+
+enum code_constraint {
+    code_pkey
+}
+
+input code_insert_input {
+  content: String
+  id: uuid
+  lang: String
+}
+
+type code_max_fields {
+  content: String
+  lang: String
+}
+
+input code_max_order_by {
+  content: order_by
+  lang: order_by
+}
+
+type code_min_fields {
+  content: String
+  lang: String
+}
+
+input code_min_order_by {
+  content: order_by
+  lang: order_by
+}
+
+type code_mutation_response {
+    affected_rows: Int!
+
+    returning: [code!]!
+}
+
+input code_obj_rel_insert_input {
+  data: code_insert_input!
+  on_conflict: code_on_conflict
+}
+
+input code_on_conflict {
+  constraint: code_constraint!
+  update_columns: [code_update_column!]!
+  where: code_bool_exp
+}
+
+input code_order_by {
+  content: order_by
+  id: order_by
+  lang: order_by
+}
+
+enum code_select_column {
+    content
+
+    id
+
+    lang
+}
+
+input code_set_input {
+  content: String
+  id: uuid
+  lang: String
+}
+
+enum code_update_column {
+    content
+
+    id
+
+    lang
+}
+
+scalar float8
+
+input float8_comparison_exp {
+  _eq: float8
+  _gt: float8
+  _gte: float8
+  _in: [float8!]
+  _is_null: Boolean
+  _lt: float8
+  _lte: float8
+  _neq: float8
+  _nin: [float8!]
+}
+
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+type logged_user {
+  email: String!
+  id: Int!
+  name: String!
+  role: String!
+}
+
+input login_input {
+  name: String!
+  password: String!
+}
+
+type login_response {
+  token: String!
+  user: logged_user!
+}
+
+type Mutation {
+  login(input: login_input!): login_response!
+  sign_up(input: sign_up_input!): Boolean!
+  submit_code(input: submit_code_input!): submit_code_response!
+  upload_test_set(base64str: String!, problem_id: Int!): upload_test_set_response!
+}
+
+extend type Mutation {
+    delete_code(
+        where: code_bool_exp!
+  ): code_mutation_response
+
+    delete_problem(
+        where: problem_bool_exp!
+  ): problem_mutation_response
+
+    delete_problem_tag(
+        where: problem_tag_bool_exp!
+  ): problem_tag_mutation_response
+
+    delete_submission(
+        where: submission_bool_exp!
+  ): submission_mutation_response
+
+    delete_tag(
+        where: tag_bool_exp!
+  ): tag_mutation_response
+
+    delete_user(
+        where: user_bool_exp!
+  ): user_mutation_response
+
+    insert_code(
+        objects: [code_insert_input!]!
+
+        on_conflict: code_on_conflict
+  ): code_mutation_response
+
+    insert_problem(
+        objects: [problem_insert_input!]!
+
+        on_conflict: problem_on_conflict
+  ): problem_mutation_response
+
+    insert_problem_tag(
+        objects: [problem_tag_insert_input!]!
+
+        on_conflict: problem_tag_on_conflict
+  ): problem_tag_mutation_response
+
+    insert_submission(
+        objects: [submission_insert_input!]!
+
+        on_conflict: submission_on_conflict
+  ): submission_mutation_response
+
+    insert_tag(
+        objects: [tag_insert_input!]!
+
+        on_conflict: tag_on_conflict
+  ): tag_mutation_response
+
+    insert_user(
+        objects: [user_insert_input!]!
+
+        on_conflict: user_on_conflict
+  ): user_mutation_response
+  login(input: login_input!): login_response!
+  sign_up(input: sign_up_input!): Boolean!
+  submit_code(input: submit_code_input!): submit_code_response!
+
+    update_code(
+        _set: code_set_input
+
+        where: code_bool_exp!
+  ): code_mutation_response
+
+    update_problem(
+        _inc: problem_inc_input
+
+        _set: problem_set_input
+
+        where: problem_bool_exp!
+  ): problem_mutation_response
+
+    update_problem_tag(
+        _inc: problem_tag_inc_input
+
+        _set: problem_tag_set_input
+
+        where: problem_tag_bool_exp!
+  ): problem_tag_mutation_response
+
+    update_submission(
+        _inc: submission_inc_input
+
+        _set: submission_set_input
+
+        where: submission_bool_exp!
+  ): submission_mutation_response
+
+    update_tag(
+        _inc: tag_inc_input
+
+        _set: tag_set_input
+
+        where: tag_bool_exp!
+  ): tag_mutation_response
+
+    update_user(
+        _inc: user_inc_input
+
+        _set: user_set_input
+
+        where: user_bool_exp!
+  ): user_mutation_response
+  upload_test_set(base64str: String!, problem_id: Int!): upload_test_set_response!
+}
+
+enum order_by {
+    asc
+
+    asc_nulls_first
+
+    asc_nulls_last
+
+    desc
+
+    desc_nulls_first
+
+    desc_nulls_last
+}
+
+type problem {
+  accepted_count: Int!
+
+    author: user
+  author_id: Int
+  background: String
+  created_at: timestamptz!
+  description: String!
+  difficulty: Int!
+  id: Int!
+  input_format: String!
+  memory_limit: Int
+  negative_count: Int!
+  note: String
+  output_format: String!
+  positive_count: Int!
+
+    problem_tags(
+        distinct_on: [problem_tag_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_tag_order_by!]
+
+        where: problem_tag_bool_exp
+  ): [problem_tag!]!
+
+    problem_tags_aggregate(
+        distinct_on: [problem_tag_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_tag_order_by!]
+
+        where: problem_tag_bool_exp
+  ): problem_tag_aggregate!
+  samples: String
+  status: String!
+  submission_count: Int!
+
+    submissions(
+        distinct_on: [submission_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [submission_order_by!]
+
+        where: submission_bool_exp
+  ): [submission!]!
+
+    submissions_aggregate(
+        distinct_on: [submission_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [submission_order_by!]
+
+        where: submission_bool_exp
+  ): submission_aggregate!
+
+    tags(
+        distinct_on: [problem_tags_view_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_tags_view_order_by!]
+
+        where: problem_tags_view_bool_exp
+  ): [problem_tags_view!]!
+
+    tags_aggregate(
+        distinct_on: [problem_tags_view_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_tags_view_order_by!]
+
+        where: problem_tags_view_bool_exp
+  ): problem_tags_view_aggregate!
+  time_limit: Int
+  title: String!
+  updated_at: timestamptz!
+}
+
+type problem_aggregate {
+  aggregate: problem_aggregate_fields
+  nodes: [problem!]!
+}
+
+type problem_aggregate_fields {
+  avg: problem_avg_fields
+  count(columns: [problem_select_column!], distinct: Boolean): Int
+  max: problem_max_fields
+  min: problem_min_fields
+  stddev: problem_stddev_fields
+  stddev_pop: problem_stddev_pop_fields
+  stddev_samp: problem_stddev_samp_fields
+  sum: problem_sum_fields
+  var_pop: problem_var_pop_fields
+  var_samp: problem_var_samp_fields
+  variance: problem_variance_fields
+}
+
+input problem_aggregate_order_by {
+  avg: problem_avg_order_by
+  count: order_by
+  max: problem_max_order_by
+  min: problem_min_order_by
+  stddev: problem_stddev_order_by
+  stddev_pop: problem_stddev_pop_order_by
+  stddev_samp: problem_stddev_samp_order_by
+  sum: problem_sum_order_by
+  var_pop: problem_var_pop_order_by
+  var_samp: problem_var_samp_order_by
+  variance: problem_variance_order_by
+}
+
+input problem_arr_rel_insert_input {
+  data: [problem_insert_input!]!
+  on_conflict: problem_on_conflict
+}
+
+type problem_avg_fields {
+  accepted_count: Float
+  author_id: Float
+  difficulty: Float
+  id: Float
+  memory_limit: Float
+  negative_count: Float
+  positive_count: Float
+  submission_count: Float
+  time_limit: Float
+}
+
+input problem_avg_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  memory_limit: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  time_limit: order_by
+}
+
+input problem_bool_exp {
+  _and: [problem_bool_exp]
+  _not: problem_bool_exp
+  _or: [problem_bool_exp]
+  accepted_count: Int_comparison_exp
+  author: user_bool_exp
+  author_id: Int_comparison_exp
+  background: String_comparison_exp
+  created_at: timestamptz_comparison_exp
+  description: String_comparison_exp
+  difficulty: Int_comparison_exp
+  id: Int_comparison_exp
+  input_format: String_comparison_exp
+  memory_limit: Int_comparison_exp
+  negative_count: Int_comparison_exp
+  note: String_comparison_exp
+  output_format: String_comparison_exp
+  positive_count: Int_comparison_exp
+  problem_tags: problem_tag_bool_exp
+  samples: String_comparison_exp
+  status: String_comparison_exp
+  submission_count: Int_comparison_exp
+  submissions: submission_bool_exp
+  tags: problem_tags_view_bool_exp
+  time_limit: Int_comparison_exp
+  title: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+enum problem_constraint {
+    problem_pkey
+
+    problem_title_key
+}
+
+input problem_inc_input {
+  accepted_count: Int
+  author_id: Int
+  difficulty: Int
+  id: Int
+  memory_limit: Int
+  negative_count: Int
+  positive_count: Int
+  submission_count: Int
+  time_limit: Int
+}
+
+input problem_insert_input {
+  accepted_count: Int
+  author: user_obj_rel_insert_input
+  author_id: Int
+  background: String
+  created_at: timestamptz
+  description: String
+  difficulty: Int
+  id: Int
+  input_format: String
+  memory_limit: Int
+  negative_count: Int
+  note: String
+  output_format: String
+  positive_count: Int
+  problem_tags: problem_tag_arr_rel_insert_input
+  samples: String
+  status: String
+  submission_count: Int
+  submissions: submission_arr_rel_insert_input
+  time_limit: Int
+  title: String
+  updated_at: timestamptz
+}
+
+type problem_max_fields {
+  accepted_count: Int
+  author_id: Int
+  background: String
+  created_at: timestamptz
+  description: String
+  difficulty: Int
+  id: Int
+  input_format: String
+  memory_limit: Int
+  negative_count: Int
+  note: String
+  output_format: String
+  positive_count: Int
+  samples: String
+  status: String
+  submission_count: Int
+  time_limit: Int
+  title: String
+  updated_at: timestamptz
+}
+
+input problem_max_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  background: order_by
+  created_at: order_by
+  description: order_by
+  difficulty: order_by
+  id: order_by
+  input_format: order_by
+  memory_limit: order_by
+  negative_count: order_by
+  note: order_by
+  output_format: order_by
+  positive_count: order_by
+  samples: order_by
+  status: order_by
+  submission_count: order_by
+  time_limit: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+type problem_min_fields {
+  accepted_count: Int
+  author_id: Int
+  background: String
+  created_at: timestamptz
+  description: String
+  difficulty: Int
+  id: Int
+  input_format: String
+  memory_limit: Int
+  negative_count: Int
+  note: String
+  output_format: String
+  positive_count: Int
+  samples: String
+  status: String
+  submission_count: Int
+  time_limit: Int
+  title: String
+  updated_at: timestamptz
+}
+
+input problem_min_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  background: order_by
+  created_at: order_by
+  description: order_by
+  difficulty: order_by
+  id: order_by
+  input_format: order_by
+  memory_limit: order_by
+  negative_count: order_by
+  note: order_by
+  output_format: order_by
+  positive_count: order_by
+  samples: order_by
+  status: order_by
+  submission_count: order_by
+  time_limit: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+type problem_mutation_response {
+    affected_rows: Int!
+
+    returning: [problem!]!
+}
+
+input problem_obj_rel_insert_input {
+  data: problem_insert_input!
+  on_conflict: problem_on_conflict
+}
+
+input problem_on_conflict {
+  constraint: problem_constraint!
+  update_columns: [problem_update_column!]!
+  where: problem_bool_exp
+}
+
+input problem_order_by {
+  accepted_count: order_by
+  author: user_order_by
+  author_id: order_by
+  background: order_by
+  created_at: order_by
+  description: order_by
+  difficulty: order_by
+  id: order_by
+  input_format: order_by
+  memory_limit: order_by
+  negative_count: order_by
+  note: order_by
+  output_format: order_by
+  positive_count: order_by
+  problem_tags_aggregate: problem_tag_aggregate_order_by
+  samples: order_by
+  status: order_by
+  submission_count: order_by
+  submissions_aggregate: submission_aggregate_order_by
+  tags_aggregate: problem_tags_view_aggregate_order_by
+  time_limit: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+enum problem_select_column {
+    accepted_count
+
+    author_id
+
+    background
+
+    created_at
+
+    description
+
+    difficulty
+
+    id
+
+    input_format
+
+    memory_limit
+
+    negative_count
+
+    note
+
+    output_format
+
+    positive_count
+
+    samples
+
+    status
+
+    submission_count
+
+    time_limit
+
+    title
+
+    updated_at
+}
+
+input problem_set_input {
+  accepted_count: Int
+  author_id: Int
+  background: String
+  created_at: timestamptz
+  description: String
+  difficulty: Int
+  id: Int
+  input_format: String
+  memory_limit: Int
+  negative_count: Int
+  note: String
+  output_format: String
+  positive_count: Int
+  samples: String
+  status: String
+  submission_count: Int
+  time_limit: Int
+  title: String
+  updated_at: timestamptz
+}
+
+type problem_stddev_fields {
+  accepted_count: Float
+  author_id: Float
+  difficulty: Float
+  id: Float
+  memory_limit: Float
+  negative_count: Float
+  positive_count: Float
+  submission_count: Float
+  time_limit: Float
+}
+
+input problem_stddev_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  memory_limit: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  time_limit: order_by
+}
+
+type problem_stddev_pop_fields {
+  accepted_count: Float
+  author_id: Float
+  difficulty: Float
+  id: Float
+  memory_limit: Float
+  negative_count: Float
+  positive_count: Float
+  submission_count: Float
+  time_limit: Float
+}
+
+input problem_stddev_pop_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  memory_limit: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  time_limit: order_by
+}
+
+type problem_stddev_samp_fields {
+  accepted_count: Float
+  author_id: Float
+  difficulty: Float
+  id: Float
+  memory_limit: Float
+  negative_count: Float
+  positive_count: Float
+  submission_count: Float
+  time_limit: Float
+}
+
+input problem_stddev_samp_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  memory_limit: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  time_limit: order_by
+}
+
+type problem_sum_fields {
+  accepted_count: Int
+  author_id: Int
+  difficulty: Int
+  id: Int
+  memory_limit: Int
+  negative_count: Int
+  positive_count: Int
+  submission_count: Int
+  time_limit: Int
+}
+
+input problem_sum_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  memory_limit: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  time_limit: order_by
+}
+
+type problem_tag {
+  problem_id: Int!
+
+    tag: tag!
+  tag_id: Int!
+}
+
+type problem_tag_aggregate {
+  aggregate: problem_tag_aggregate_fields
+  nodes: [problem_tag!]!
+}
+
+type problem_tag_aggregate_fields {
+  avg: problem_tag_avg_fields
+  count(columns: [problem_tag_select_column!], distinct: Boolean): Int
+  max: problem_tag_max_fields
+  min: problem_tag_min_fields
+  stddev: problem_tag_stddev_fields
+  stddev_pop: problem_tag_stddev_pop_fields
+  stddev_samp: problem_tag_stddev_samp_fields
+  sum: problem_tag_sum_fields
+  var_pop: problem_tag_var_pop_fields
+  var_samp: problem_tag_var_samp_fields
+  variance: problem_tag_variance_fields
+}
+
+input problem_tag_aggregate_order_by {
+  avg: problem_tag_avg_order_by
+  count: order_by
+  max: problem_tag_max_order_by
+  min: problem_tag_min_order_by
+  stddev: problem_tag_stddev_order_by
+  stddev_pop: problem_tag_stddev_pop_order_by
+  stddev_samp: problem_tag_stddev_samp_order_by
+  sum: problem_tag_sum_order_by
+  var_pop: problem_tag_var_pop_order_by
+  var_samp: problem_tag_var_samp_order_by
+  variance: problem_tag_variance_order_by
+}
+
+input problem_tag_arr_rel_insert_input {
+  data: [problem_tag_insert_input!]!
+  on_conflict: problem_tag_on_conflict
+}
+
+type problem_tag_avg_fields {
+  problem_id: Float
+  tag_id: Float
+}
+
+input problem_tag_avg_order_by {
+  problem_id: order_by
+  tag_id: order_by
+}
+
+input problem_tag_bool_exp {
+  _and: [problem_tag_bool_exp]
+  _not: problem_tag_bool_exp
+  _or: [problem_tag_bool_exp]
+  problem_id: Int_comparison_exp
+  tag: tag_bool_exp
+  tag_id: Int_comparison_exp
+}
+
+enum problem_tag_constraint {
+    problem_tag_pkey
+}
+
+input problem_tag_inc_input {
+  problem_id: Int
+  tag_id: Int
+}
+
+input problem_tag_insert_input {
+  problem_id: Int
+  tag: tag_obj_rel_insert_input
+  tag_id: Int
+}
+
+type problem_tag_max_fields {
+  problem_id: Int
+  tag_id: Int
+}
+
+input problem_tag_max_order_by {
+  problem_id: order_by
+  tag_id: order_by
+}
+
+type problem_tag_min_fields {
+  problem_id: Int
+  tag_id: Int
+}
+
+input problem_tag_min_order_by {
+  problem_id: order_by
+  tag_id: order_by
+}
+
+type problem_tag_mutation_response {
+    affected_rows: Int!
+
+    returning: [problem_tag!]!
+}
+
+input problem_tag_obj_rel_insert_input {
+  data: problem_tag_insert_input!
+  on_conflict: problem_tag_on_conflict
+}
+
+input problem_tag_on_conflict {
+  constraint: problem_tag_constraint!
+  update_columns: [problem_tag_update_column!]!
+  where: problem_tag_bool_exp
+}
+
+input problem_tag_order_by {
+  problem_id: order_by
+  tag: tag_order_by
+  tag_id: order_by
+}
+
+enum problem_tag_select_column {
+    problem_id
+
+    tag_id
+}
+
+input problem_tag_set_input {
+  problem_id: Int
+  tag_id: Int
+}
+
+type problem_tag_stddev_fields {
+  problem_id: Float
+  tag_id: Float
+}
+
+input problem_tag_stddev_order_by {
+  problem_id: order_by
+  tag_id: order_by
+}
+
+type problem_tag_stddev_pop_fields {
+  problem_id: Float
+  tag_id: Float
+}
+
+input problem_tag_stddev_pop_order_by {
+  problem_id: order_by
+  tag_id: order_by
+}
+
+type problem_tag_stddev_samp_fields {
+  problem_id: Float
+  tag_id: Float
+}
+
+input problem_tag_stddev_samp_order_by {
+  problem_id: order_by
+  tag_id: order_by
+}
+
+type problem_tag_sum_fields {
+  problem_id: Int
+  tag_id: Int
+}
+
+input problem_tag_sum_order_by {
+  problem_id: order_by
+  tag_id: order_by
+}
+
+enum problem_tag_update_column {
+    problem_id
+
+    tag_id
+}
+
+type problem_tag_var_pop_fields {
+  problem_id: Float
+  tag_id: Float
+}
+
+input problem_tag_var_pop_order_by {
+  problem_id: order_by
+  tag_id: order_by
+}
+
+type problem_tag_var_samp_fields {
+  problem_id: Float
+  tag_id: Float
+}
+
+input problem_tag_var_samp_order_by {
+  problem_id: order_by
+  tag_id: order_by
+}
+
+type problem_tag_variance_fields {
+  problem_id: Float
+  tag_id: Float
+}
+
+input problem_tag_variance_order_by {
+  problem_id: order_by
+  tag_id: order_by
+}
+
+type problem_tags_view {
+  id: Int
+  name: String
+  problem_id: Int
+}
+
+type problem_tags_view_aggregate {
+  aggregate: problem_tags_view_aggregate_fields
+  nodes: [problem_tags_view!]!
+}
+
+type problem_tags_view_aggregate_fields {
+  avg: problem_tags_view_avg_fields
+  count(columns: [problem_tags_view_select_column!], distinct: Boolean): Int
+  max: problem_tags_view_max_fields
+  min: problem_tags_view_min_fields
+  stddev: problem_tags_view_stddev_fields
+  stddev_pop: problem_tags_view_stddev_pop_fields
+  stddev_samp: problem_tags_view_stddev_samp_fields
+  sum: problem_tags_view_sum_fields
+  var_pop: problem_tags_view_var_pop_fields
+  var_samp: problem_tags_view_var_samp_fields
+  variance: problem_tags_view_variance_fields
+}
+
+input problem_tags_view_aggregate_order_by {
+  avg: problem_tags_view_avg_order_by
+  count: order_by
+  max: problem_tags_view_max_order_by
+  min: problem_tags_view_min_order_by
+  stddev: problem_tags_view_stddev_order_by
+  stddev_pop: problem_tags_view_stddev_pop_order_by
+  stddev_samp: problem_tags_view_stddev_samp_order_by
+  sum: problem_tags_view_sum_order_by
+  var_pop: problem_tags_view_var_pop_order_by
+  var_samp: problem_tags_view_var_samp_order_by
+  variance: problem_tags_view_variance_order_by
+}
+
+type problem_tags_view_avg_fields {
+  id: Float
+  problem_id: Float
+}
+
+input problem_tags_view_avg_order_by {
+  id: order_by
+  problem_id: order_by
+}
+
+input problem_tags_view_bool_exp {
+  _and: [problem_tags_view_bool_exp]
+  _not: problem_tags_view_bool_exp
+  _or: [problem_tags_view_bool_exp]
+  id: Int_comparison_exp
+  name: String_comparison_exp
+  problem_id: Int_comparison_exp
+}
+
+type problem_tags_view_max_fields {
+  id: Int
+  name: String
+  problem_id: Int
+}
+
+input problem_tags_view_max_order_by {
+  id: order_by
+  name: order_by
+  problem_id: order_by
+}
+
+type problem_tags_view_min_fields {
+  id: Int
+  name: String
+  problem_id: Int
+}
+
+input problem_tags_view_min_order_by {
+  id: order_by
+  name: order_by
+  problem_id: order_by
+}
+
+input problem_tags_view_order_by {
+  id: order_by
+  name: order_by
+  problem_id: order_by
+}
+
+enum problem_tags_view_select_column {
+    id
+
+    name
+
+    problem_id
+}
+
+type problem_tags_view_stddev_fields {
+  id: Float
+  problem_id: Float
+}
+
+input problem_tags_view_stddev_order_by {
+  id: order_by
+  problem_id: order_by
+}
+
+type problem_tags_view_stddev_pop_fields {
+  id: Float
+  problem_id: Float
+}
+
+input problem_tags_view_stddev_pop_order_by {
+  id: order_by
+  problem_id: order_by
+}
+
+type problem_tags_view_stddev_samp_fields {
+  id: Float
+  problem_id: Float
+}
+
+input problem_tags_view_stddev_samp_order_by {
+  id: order_by
+  problem_id: order_by
+}
+
+type problem_tags_view_sum_fields {
+  id: Int
+  problem_id: Int
+}
+
+input problem_tags_view_sum_order_by {
+  id: order_by
+  problem_id: order_by
+}
+
+type problem_tags_view_var_pop_fields {
+  id: Float
+  problem_id: Float
+}
+
+input problem_tags_view_var_pop_order_by {
+  id: order_by
+  problem_id: order_by
+}
+
+type problem_tags_view_var_samp_fields {
+  id: Float
+  problem_id: Float
+}
+
+input problem_tags_view_var_samp_order_by {
+  id: order_by
+  problem_id: order_by
+}
+
+type problem_tags_view_variance_fields {
+  id: Float
+  problem_id: Float
+}
+
+input problem_tags_view_variance_order_by {
+  id: order_by
+  problem_id: order_by
+}
+
+enum problem_update_column {
+    accepted_count
+
+    author_id
+
+    background
+
+    created_at
+
+    description
+
+    difficulty
+
+    id
+
+    input_format
+
+    memory_limit
+
+    negative_count
+
+    note
+
+    output_format
+
+    positive_count
+
+    samples
+
+    status
+
+    submission_count
+
+    time_limit
+
+    title
+
+    updated_at
+}
+
+type problem_var_pop_fields {
+  accepted_count: Float
+  author_id: Float
+  difficulty: Float
+  id: Float
+  memory_limit: Float
+  negative_count: Float
+  positive_count: Float
+  submission_count: Float
+  time_limit: Float
+}
+
+input problem_var_pop_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  memory_limit: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  time_limit: order_by
+}
+
+type problem_var_samp_fields {
+  accepted_count: Float
+  author_id: Float
+  difficulty: Float
+  id: Float
+  memory_limit: Float
+  negative_count: Float
+  positive_count: Float
+  submission_count: Float
+  time_limit: Float
+}
+
+input problem_var_samp_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  memory_limit: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  time_limit: order_by
+}
+
+type problem_variance_fields {
+  accepted_count: Float
+  author_id: Float
+  difficulty: Float
+  id: Float
+  memory_limit: Float
+  negative_count: Float
+  positive_count: Float
+  submission_count: Float
+  time_limit: Float
+}
+
+input problem_variance_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  memory_limit: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  time_limit: order_by
+}
+
+type Query {
+  hello: String!
+}
+
+extend type Query {
+    code(
+        distinct_on: [code_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [code_order_by!]
+
+        where: code_bool_exp
+  ): [code!]!
+
+    code_aggregate(
+        distinct_on: [code_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [code_order_by!]
+
+        where: code_bool_exp
+  ): code_aggregate!
+
+    code_by_pk(id: uuid!): code
+  hello: String!
+
+    problem(
+        distinct_on: [problem_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_order_by!]
+
+        where: problem_bool_exp
+  ): [problem!]!
+
+    problem_aggregate(
+        distinct_on: [problem_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_order_by!]
+
+        where: problem_bool_exp
+  ): problem_aggregate!
+
+    problem_by_pk(id: Int!): problem
+
+    problem_tag(
+        distinct_on: [problem_tag_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_tag_order_by!]
+
+        where: problem_tag_bool_exp
+  ): [problem_tag!]!
+
+    problem_tag_aggregate(
+        distinct_on: [problem_tag_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_tag_order_by!]
+
+        where: problem_tag_bool_exp
+  ): problem_tag_aggregate!
+
+    problem_tag_by_pk(problem_id: Int!, tag_id: Int!): problem_tag
+
+    problem_tags_view(
+        distinct_on: [problem_tags_view_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_tags_view_order_by!]
+
+        where: problem_tags_view_bool_exp
+  ): [problem_tags_view!]!
+
+    problem_tags_view_aggregate(
+        distinct_on: [problem_tags_view_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_tags_view_order_by!]
+
+        where: problem_tags_view_bool_exp
+  ): problem_tags_view_aggregate!
+
+    submission(
+        distinct_on: [submission_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [submission_order_by!]
+
+        where: submission_bool_exp
+  ): [submission!]!
+
+    submission_aggregate(
+        distinct_on: [submission_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [submission_order_by!]
+
+        where: submission_bool_exp
+  ): submission_aggregate!
+
+    submission_by_pk(id: uuid!): submission
+
+    tag(
+        distinct_on: [tag_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [tag_order_by!]
+
+        where: tag_bool_exp
+  ): [tag!]!
+
+    tag_aggregate(
+        distinct_on: [tag_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [tag_order_by!]
+
+        where: tag_bool_exp
+  ): tag_aggregate!
+
+    tag_by_pk(id: Int!): tag
+
+    tag_problems_view(
+        distinct_on: [tag_problems_view_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [tag_problems_view_order_by!]
+
+        where: tag_problems_view_bool_exp
+  ): [tag_problems_view!]!
+
+    tag_problems_view_aggregate(
+        distinct_on: [tag_problems_view_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [tag_problems_view_order_by!]
+
+        where: tag_problems_view_bool_exp
+  ): tag_problems_view_aggregate!
+
+    user(
+        distinct_on: [user_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [user_order_by!]
+
+        where: user_bool_exp
+  ): [user!]!
+
+    user_aggregate(
+        distinct_on: [user_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [user_order_by!]
+
+        where: user_bool_exp
+  ): user_aggregate!
+
+    user_by_pk(id: Int!): user
+}
+
+input sign_up_input {
+  email: String!
+  name: String!
+  password: String!
+}
+
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+type submission {
+    code: code!
+  code_id: uuid!
+  created_at: timestamptz!
+  id: uuid!
+  memory_usage: Int
+
+    problem: problem!
+  problem_id: Int!
+  score: float8
+  status: String!
+  test_points: String
+  time_usage: Int
+
+    user: user!
+  user_id: Int!
+}
+
+type submission_aggregate {
+  aggregate: submission_aggregate_fields
+  nodes: [submission!]!
+}
+
+type submission_aggregate_fields {
+  avg: submission_avg_fields
+  count(columns: [submission_select_column!], distinct: Boolean): Int
+  max: submission_max_fields
+  min: submission_min_fields
+  stddev: submission_stddev_fields
+  stddev_pop: submission_stddev_pop_fields
+  stddev_samp: submission_stddev_samp_fields
+  sum: submission_sum_fields
+  var_pop: submission_var_pop_fields
+  var_samp: submission_var_samp_fields
+  variance: submission_variance_fields
+}
+
+input submission_aggregate_order_by {
+  avg: submission_avg_order_by
+  count: order_by
+  max: submission_max_order_by
+  min: submission_min_order_by
+  stddev: submission_stddev_order_by
+  stddev_pop: submission_stddev_pop_order_by
+  stddev_samp: submission_stddev_samp_order_by
+  sum: submission_sum_order_by
+  var_pop: submission_var_pop_order_by
+  var_samp: submission_var_samp_order_by
+  variance: submission_variance_order_by
+}
+
+input submission_arr_rel_insert_input {
+  data: [submission_insert_input!]!
+  on_conflict: submission_on_conflict
+}
+
+type submission_avg_fields {
+  memory_usage: Float
+  problem_id: Float
+  score: Float
+  time_usage: Float
+  user_id: Float
+}
+
+input submission_avg_order_by {
+  memory_usage: order_by
+  problem_id: order_by
+  score: order_by
+  time_usage: order_by
+  user_id: order_by
+}
+
+input submission_bool_exp {
+  _and: [submission_bool_exp]
+  _not: submission_bool_exp
+  _or: [submission_bool_exp]
+  code: code_bool_exp
+  code_id: uuid_comparison_exp
+  created_at: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  memory_usage: Int_comparison_exp
+  problem: problem_bool_exp
+  problem_id: Int_comparison_exp
+  score: float8_comparison_exp
+  status: String_comparison_exp
+  test_points: String_comparison_exp
+  time_usage: Int_comparison_exp
+  user: user_bool_exp
+  user_id: Int_comparison_exp
+}
+
+enum submission_constraint {
+    submission_pkey
+}
+
+input submission_inc_input {
+  memory_usage: Int
+  problem_id: Int
+  time_usage: Int
+  user_id: Int
+}
+
+input submission_insert_input {
+  code: code_obj_rel_insert_input
+  code_id: uuid
+  created_at: timestamptz
+  id: uuid
+  memory_usage: Int
+  problem: problem_obj_rel_insert_input
+  problem_id: Int
+  score: float8
+  status: String
+  test_points: String
+  time_usage: Int
+  user: user_obj_rel_insert_input
+  user_id: Int
+}
+
+type submission_max_fields {
+  created_at: timestamptz
+  memory_usage: Int
+  problem_id: Int
+  score: float8
+  status: String
+  test_points: String
+  time_usage: Int
+  user_id: Int
+}
+
+input submission_max_order_by {
+  created_at: order_by
+  memory_usage: order_by
+  problem_id: order_by
+  score: order_by
+  status: order_by
+  test_points: order_by
+  time_usage: order_by
+  user_id: order_by
+}
+
+type submission_min_fields {
+  created_at: timestamptz
+  memory_usage: Int
+  problem_id: Int
+  score: float8
+  status: String
+  test_points: String
+  time_usage: Int
+  user_id: Int
+}
+
+input submission_min_order_by {
+  created_at: order_by
+  memory_usage: order_by
+  problem_id: order_by
+  score: order_by
+  status: order_by
+  test_points: order_by
+  time_usage: order_by
+  user_id: order_by
+}
+
+type submission_mutation_response {
+    affected_rows: Int!
+
+    returning: [submission!]!
+}
+
+input submission_obj_rel_insert_input {
+  data: submission_insert_input!
+  on_conflict: submission_on_conflict
+}
+
+input submission_on_conflict {
+  constraint: submission_constraint!
+  update_columns: [submission_update_column!]!
+  where: submission_bool_exp
+}
+
+input submission_order_by {
+  code: code_order_by
+  code_id: order_by
+  created_at: order_by
+  id: order_by
+  memory_usage: order_by
+  problem: problem_order_by
+  problem_id: order_by
+  score: order_by
+  status: order_by
+  test_points: order_by
+  time_usage: order_by
+  user: user_order_by
+  user_id: order_by
+}
+
+enum submission_select_column {
+    code_id
+
+    created_at
+
+    id
+
+    memory_usage
+
+    problem_id
+
+    score
+
+    status
+
+    test_points
+
+    time_usage
+
+    user_id
+}
+
+input submission_set_input {
+  code_id: uuid
+  created_at: timestamptz
+  id: uuid
+  memory_usage: Int
+  problem_id: Int
+  score: float8
+  status: String
+  test_points: String
+  time_usage: Int
+  user_id: Int
+}
+
+type submission_stddev_fields {
+  memory_usage: Float
+  problem_id: Float
+  score: Float
+  time_usage: Float
+  user_id: Float
+}
+
+input submission_stddev_order_by {
+  memory_usage: order_by
+  problem_id: order_by
+  score: order_by
+  time_usage: order_by
+  user_id: order_by
+}
+
+type submission_stddev_pop_fields {
+  memory_usage: Float
+  problem_id: Float
+  score: Float
+  time_usage: Float
+  user_id: Float
+}
+
+input submission_stddev_pop_order_by {
+  memory_usage: order_by
+  problem_id: order_by
+  score: order_by
+  time_usage: order_by
+  user_id: order_by
+}
+
+type submission_stddev_samp_fields {
+  memory_usage: Float
+  problem_id: Float
+  score: Float
+  time_usage: Float
+  user_id: Float
+}
+
+input submission_stddev_samp_order_by {
+  memory_usage: order_by
+  problem_id: order_by
+  score: order_by
+  time_usage: order_by
+  user_id: order_by
+}
+
+type submission_sum_fields {
+  memory_usage: Int
+  problem_id: Int
+  score: float8
+  time_usage: Int
+  user_id: Int
+}
+
+input submission_sum_order_by {
+  memory_usage: order_by
+  problem_id: order_by
+  score: order_by
+  time_usage: order_by
+  user_id: order_by
+}
+
+enum submission_update_column {
+    code_id
+
+    created_at
+
+    id
+
+    memory_usage
+
+    problem_id
+
+    score
+
+    status
+
+    test_points
+
+    time_usage
+
+    user_id
+}
+
+type submission_var_pop_fields {
+  memory_usage: Float
+  problem_id: Float
+  score: Float
+  time_usage: Float
+  user_id: Float
+}
+
+input submission_var_pop_order_by {
+  memory_usage: order_by
+  problem_id: order_by
+  score: order_by
+  time_usage: order_by
+  user_id: order_by
+}
+
+type submission_var_samp_fields {
+  memory_usage: Float
+  problem_id: Float
+  score: Float
+  time_usage: Float
+  user_id: Float
+}
+
+input submission_var_samp_order_by {
+  memory_usage: order_by
+  problem_id: order_by
+  score: order_by
+  time_usage: order_by
+  user_id: order_by
+}
+
+type submission_variance_fields {
+  memory_usage: Float
+  problem_id: Float
+  score: Float
+  time_usage: Float
+  user_id: Float
+}
+
+input submission_variance_order_by {
+  memory_usage: order_by
+  problem_id: order_by
+  score: order_by
+  time_usage: order_by
+  user_id: order_by
+}
+
+input submit_code_input {
+  content: String!
+  lang: String!
+  problem_id: ID!
+}
+
+type submit_code_response {
+  submission_id: ID!
+}
+
+extend type Subscription {
+    code(
+        distinct_on: [code_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [code_order_by!]
+
+        where: code_bool_exp
+  ): [code!]!
+
+    code_aggregate(
+        distinct_on: [code_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [code_order_by!]
+
+        where: code_bool_exp
+  ): code_aggregate!
+
+    code_by_pk(id: uuid!): code
+
+    problem(
+        distinct_on: [problem_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_order_by!]
+
+        where: problem_bool_exp
+  ): [problem!]!
+
+    problem_aggregate(
+        distinct_on: [problem_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_order_by!]
+
+        where: problem_bool_exp
+  ): problem_aggregate!
+
+    problem_by_pk(id: Int!): problem
+
+    problem_tag(
+        distinct_on: [problem_tag_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_tag_order_by!]
+
+        where: problem_tag_bool_exp
+  ): [problem_tag!]!
+
+    problem_tag_aggregate(
+        distinct_on: [problem_tag_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_tag_order_by!]
+
+        where: problem_tag_bool_exp
+  ): problem_tag_aggregate!
+
+    problem_tag_by_pk(problem_id: Int!, tag_id: Int!): problem_tag
+
+    problem_tags_view(
+        distinct_on: [problem_tags_view_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_tags_view_order_by!]
+
+        where: problem_tags_view_bool_exp
+  ): [problem_tags_view!]!
+
+    problem_tags_view_aggregate(
+        distinct_on: [problem_tags_view_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_tags_view_order_by!]
+
+        where: problem_tags_view_bool_exp
+  ): problem_tags_view_aggregate!
+
+    submission(
+        distinct_on: [submission_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [submission_order_by!]
+
+        where: submission_bool_exp
+  ): [submission!]!
+
+    submission_aggregate(
+        distinct_on: [submission_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [submission_order_by!]
+
+        where: submission_bool_exp
+  ): submission_aggregate!
+
+    submission_by_pk(id: uuid!): submission
+
+    tag(
+        distinct_on: [tag_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [tag_order_by!]
+
+        where: tag_bool_exp
+  ): [tag!]!
+
+    tag_aggregate(
+        distinct_on: [tag_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [tag_order_by!]
+
+        where: tag_bool_exp
+  ): tag_aggregate!
+
+    tag_by_pk(id: Int!): tag
+
+    tag_problems_view(
+        distinct_on: [tag_problems_view_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [tag_problems_view_order_by!]
+
+        where: tag_problems_view_bool_exp
+  ): [tag_problems_view!]!
+
+    tag_problems_view_aggregate(
+        distinct_on: [tag_problems_view_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [tag_problems_view_order_by!]
+
+        where: tag_problems_view_bool_exp
+  ): tag_problems_view_aggregate!
+
+    user(
+        distinct_on: [user_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [user_order_by!]
+
+        where: user_bool_exp
+  ): [user!]!
+
+    user_aggregate(
+        distinct_on: [user_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [user_order_by!]
+
+        where: user_bool_exp
+  ): user_aggregate!
+
+    user_by_pk(id: Int!): user
+}
+
+type tag {
+  id: Int!
+  name: String!
+}
+
+type tag_aggregate {
+  aggregate: tag_aggregate_fields
+  nodes: [tag!]!
+}
+
+type tag_aggregate_fields {
+  avg: tag_avg_fields
+  count(columns: [tag_select_column!], distinct: Boolean): Int
+  max: tag_max_fields
+  min: tag_min_fields
+  stddev: tag_stddev_fields
+  stddev_pop: tag_stddev_pop_fields
+  stddev_samp: tag_stddev_samp_fields
+  sum: tag_sum_fields
+  var_pop: tag_var_pop_fields
+  var_samp: tag_var_samp_fields
+  variance: tag_variance_fields
+}
+
+input tag_aggregate_order_by {
+  avg: tag_avg_order_by
+  count: order_by
+  max: tag_max_order_by
+  min: tag_min_order_by
+  stddev: tag_stddev_order_by
+  stddev_pop: tag_stddev_pop_order_by
+  stddev_samp: tag_stddev_samp_order_by
+  sum: tag_sum_order_by
+  var_pop: tag_var_pop_order_by
+  var_samp: tag_var_samp_order_by
+  variance: tag_variance_order_by
+}
+
+input tag_arr_rel_insert_input {
+  data: [tag_insert_input!]!
+  on_conflict: tag_on_conflict
+}
+
+type tag_avg_fields {
+  id: Float
+}
+
+input tag_avg_order_by {
+  id: order_by
+}
+
+input tag_bool_exp {
+  _and: [tag_bool_exp]
+  _not: tag_bool_exp
+  _or: [tag_bool_exp]
+  id: Int_comparison_exp
+  name: String_comparison_exp
+}
+
+enum tag_constraint {
+    tag_name_key
+
+    tag_pkey
+}
+
+input tag_inc_input {
+  id: Int
+}
+
+input tag_insert_input {
+  id: Int
+  name: String
+}
+
+type tag_max_fields {
+  id: Int
+  name: String
+}
+
+input tag_max_order_by {
+  id: order_by
+  name: order_by
+}
+
+type tag_min_fields {
+  id: Int
+  name: String
+}
+
+input tag_min_order_by {
+  id: order_by
+  name: order_by
+}
+
+type tag_mutation_response {
+    affected_rows: Int!
+
+    returning: [tag!]!
+}
+
+input tag_obj_rel_insert_input {
+  data: tag_insert_input!
+  on_conflict: tag_on_conflict
+}
+
+input tag_on_conflict {
+  constraint: tag_constraint!
+  update_columns: [tag_update_column!]!
+  where: tag_bool_exp
+}
+
+input tag_order_by {
+  id: order_by
+  name: order_by
+}
+
+type tag_problems_view {
+  accepted_count: Int
+  author_id: Int
+  background: String
+  created_at: timestamptz
+  description: String
+  difficulty: Int
+  id: Int
+  input_format: String
+  negative_count: Int
+  note: String
+  output_format: String
+  positive_count: Int
+  sample: String
+  status: String
+  submission_count: Int
+  tag_id: Int
+  title: String
+  updated_at: timestamptz
+}
+
+type tag_problems_view_aggregate {
+  aggregate: tag_problems_view_aggregate_fields
+  nodes: [tag_problems_view!]!
+}
+
+type tag_problems_view_aggregate_fields {
+  avg: tag_problems_view_avg_fields
+  count(columns: [tag_problems_view_select_column!], distinct: Boolean): Int
+  max: tag_problems_view_max_fields
+  min: tag_problems_view_min_fields
+  stddev: tag_problems_view_stddev_fields
+  stddev_pop: tag_problems_view_stddev_pop_fields
+  stddev_samp: tag_problems_view_stddev_samp_fields
+  sum: tag_problems_view_sum_fields
+  var_pop: tag_problems_view_var_pop_fields
+  var_samp: tag_problems_view_var_samp_fields
+  variance: tag_problems_view_variance_fields
+}
+
+input tag_problems_view_aggregate_order_by {
+  avg: tag_problems_view_avg_order_by
+  count: order_by
+  max: tag_problems_view_max_order_by
+  min: tag_problems_view_min_order_by
+  stddev: tag_problems_view_stddev_order_by
+  stddev_pop: tag_problems_view_stddev_pop_order_by
+  stddev_samp: tag_problems_view_stddev_samp_order_by
+  sum: tag_problems_view_sum_order_by
+  var_pop: tag_problems_view_var_pop_order_by
+  var_samp: tag_problems_view_var_samp_order_by
+  variance: tag_problems_view_variance_order_by
+}
+
+type tag_problems_view_avg_fields {
+  accepted_count: Float
+  author_id: Float
+  difficulty: Float
+  id: Float
+  negative_count: Float
+  positive_count: Float
+  submission_count: Float
+  tag_id: Float
+}
+
+input tag_problems_view_avg_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  tag_id: order_by
+}
+
+input tag_problems_view_bool_exp {
+  _and: [tag_problems_view_bool_exp]
+  _not: tag_problems_view_bool_exp
+  _or: [tag_problems_view_bool_exp]
+  accepted_count: Int_comparison_exp
+  author_id: Int_comparison_exp
+  background: String_comparison_exp
+  created_at: timestamptz_comparison_exp
+  description: String_comparison_exp
+  difficulty: Int_comparison_exp
+  id: Int_comparison_exp
+  input_format: String_comparison_exp
+  negative_count: Int_comparison_exp
+  note: String_comparison_exp
+  output_format: String_comparison_exp
+  positive_count: Int_comparison_exp
+  sample: String_comparison_exp
+  status: String_comparison_exp
+  submission_count: Int_comparison_exp
+  tag_id: Int_comparison_exp
+  title: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+type tag_problems_view_max_fields {
+  accepted_count: Int
+  author_id: Int
+  background: String
+  created_at: timestamptz
+  description: String
+  difficulty: Int
+  id: Int
+  input_format: String
+  negative_count: Int
+  note: String
+  output_format: String
+  positive_count: Int
+  sample: String
+  status: String
+  submission_count: Int
+  tag_id: Int
+  title: String
+  updated_at: timestamptz
+}
+
+input tag_problems_view_max_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  background: order_by
+  created_at: order_by
+  description: order_by
+  difficulty: order_by
+  id: order_by
+  input_format: order_by
+  negative_count: order_by
+  note: order_by
+  output_format: order_by
+  positive_count: order_by
+  sample: order_by
+  status: order_by
+  submission_count: order_by
+  tag_id: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+type tag_problems_view_min_fields {
+  accepted_count: Int
+  author_id: Int
+  background: String
+  created_at: timestamptz
+  description: String
+  difficulty: Int
+  id: Int
+  input_format: String
+  negative_count: Int
+  note: String
+  output_format: String
+  positive_count: Int
+  sample: String
+  status: String
+  submission_count: Int
+  tag_id: Int
+  title: String
+  updated_at: timestamptz
+}
+
+input tag_problems_view_min_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  background: order_by
+  created_at: order_by
+  description: order_by
+  difficulty: order_by
+  id: order_by
+  input_format: order_by
+  negative_count: order_by
+  note: order_by
+  output_format: order_by
+  positive_count: order_by
+  sample: order_by
+  status: order_by
+  submission_count: order_by
+  tag_id: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+input tag_problems_view_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  background: order_by
+  created_at: order_by
+  description: order_by
+  difficulty: order_by
+  id: order_by
+  input_format: order_by
+  negative_count: order_by
+  note: order_by
+  output_format: order_by
+  positive_count: order_by
+  sample: order_by
+  status: order_by
+  submission_count: order_by
+  tag_id: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+enum tag_problems_view_select_column {
+    accepted_count
+
+    author_id
+
+    background
+
+    created_at
+
+    description
+
+    difficulty
+
+    id
+
+    input_format
+
+    negative_count
+
+    note
+
+    output_format
+
+    positive_count
+
+    sample
+
+    status
+
+    submission_count
+
+    tag_id
+
+    title
+
+    updated_at
+}
+
+type tag_problems_view_stddev_fields {
+  accepted_count: Float
+  author_id: Float
+  difficulty: Float
+  id: Float
+  negative_count: Float
+  positive_count: Float
+  submission_count: Float
+  tag_id: Float
+}
+
+input tag_problems_view_stddev_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  tag_id: order_by
+}
+
+type tag_problems_view_stddev_pop_fields {
+  accepted_count: Float
+  author_id: Float
+  difficulty: Float
+  id: Float
+  negative_count: Float
+  positive_count: Float
+  submission_count: Float
+  tag_id: Float
+}
+
+input tag_problems_view_stddev_pop_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  tag_id: order_by
+}
+
+type tag_problems_view_stddev_samp_fields {
+  accepted_count: Float
+  author_id: Float
+  difficulty: Float
+  id: Float
+  negative_count: Float
+  positive_count: Float
+  submission_count: Float
+  tag_id: Float
+}
+
+input tag_problems_view_stddev_samp_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  tag_id: order_by
+}
+
+type tag_problems_view_sum_fields {
+  accepted_count: Int
+  author_id: Int
+  difficulty: Int
+  id: Int
+  negative_count: Int
+  positive_count: Int
+  submission_count: Int
+  tag_id: Int
+}
+
+input tag_problems_view_sum_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  tag_id: order_by
+}
+
+type tag_problems_view_var_pop_fields {
+  accepted_count: Float
+  author_id: Float
+  difficulty: Float
+  id: Float
+  negative_count: Float
+  positive_count: Float
+  submission_count: Float
+  tag_id: Float
+}
+
+input tag_problems_view_var_pop_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  tag_id: order_by
+}
+
+type tag_problems_view_var_samp_fields {
+  accepted_count: Float
+  author_id: Float
+  difficulty: Float
+  id: Float
+  negative_count: Float
+  positive_count: Float
+  submission_count: Float
+  tag_id: Float
+}
+
+input tag_problems_view_var_samp_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  tag_id: order_by
+}
+
+type tag_problems_view_variance_fields {
+  accepted_count: Float
+  author_id: Float
+  difficulty: Float
+  id: Float
+  negative_count: Float
+  positive_count: Float
+  submission_count: Float
+  tag_id: Float
+}
+
+input tag_problems_view_variance_order_by {
+  accepted_count: order_by
+  author_id: order_by
+  difficulty: order_by
+  id: order_by
+  negative_count: order_by
+  positive_count: order_by
+  submission_count: order_by
+  tag_id: order_by
+}
+
+enum tag_select_column {
+    id
+
+    name
+}
+
+input tag_set_input {
+  id: Int
+  name: String
+}
+
+type tag_stddev_fields {
+  id: Float
+}
+
+input tag_stddev_order_by {
+  id: order_by
+}
+
+type tag_stddev_pop_fields {
+  id: Float
+}
+
+input tag_stddev_pop_order_by {
+  id: order_by
+}
+
+type tag_stddev_samp_fields {
+  id: Float
+}
+
+input tag_stddev_samp_order_by {
+  id: order_by
+}
+
+type tag_sum_fields {
+  id: Int
+}
+
+input tag_sum_order_by {
+  id: order_by
+}
+
+enum tag_update_column {
+    id
+
+    name
+}
+
+type tag_var_pop_fields {
+  id: Float
+}
+
+input tag_var_pop_order_by {
+  id: order_by
+}
+
+type tag_var_samp_fields {
+  id: Float
+}
+
+input tag_var_samp_order_by {
+  id: order_by
+}
+
+type tag_variance_fields {
+  id: Float
+}
+
+input tag_variance_order_by {
+  id: order_by
+}
+
+scalar timestamptz
+
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
+type upload_test_set_response {
+  memory_limit: Int!
+  time_limit: Int!
+}
+
+type user {
+  created_at: timestamptz!
+  email: String!
+  id: Int!
+  name: String!
+  password: String!
+
+    problems(
+        distinct_on: [problem_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_order_by!]
+
+        where: problem_bool_exp
+  ): [problem!]!
+
+    problems_aggregate(
+        distinct_on: [problem_select_column!]
+
+        limit: Int
+
+        offset: Int
+
+        order_by: [problem_order_by!]
+
+        where: problem_bool_exp
+  ): problem_aggregate!
+  role: String!
+}
+
+type user_aggregate {
+  aggregate: user_aggregate_fields
+  nodes: [user!]!
+}
+
+type user_aggregate_fields {
+  avg: user_avg_fields
+  count(columns: [user_select_column!], distinct: Boolean): Int
+  max: user_max_fields
+  min: user_min_fields
+  stddev: user_stddev_fields
+  stddev_pop: user_stddev_pop_fields
+  stddev_samp: user_stddev_samp_fields
+  sum: user_sum_fields
+  var_pop: user_var_pop_fields
+  var_samp: user_var_samp_fields
+  variance: user_variance_fields
+}
+
+input user_aggregate_order_by {
+  avg: user_avg_order_by
+  count: order_by
+  max: user_max_order_by
+  min: user_min_order_by
+  stddev: user_stddev_order_by
+  stddev_pop: user_stddev_pop_order_by
+  stddev_samp: user_stddev_samp_order_by
+  sum: user_sum_order_by
+  var_pop: user_var_pop_order_by
+  var_samp: user_var_samp_order_by
+  variance: user_variance_order_by
+}
+
+input user_arr_rel_insert_input {
+  data: [user_insert_input!]!
+  on_conflict: user_on_conflict
+}
+
+type user_avg_fields {
+  id: Float
+}
+
+input user_avg_order_by {
+  id: order_by
+}
+
+input user_bool_exp {
+  _and: [user_bool_exp]
+  _not: user_bool_exp
+  _or: [user_bool_exp]
+  created_at: timestamptz_comparison_exp
+  email: String_comparison_exp
+  id: Int_comparison_exp
+  name: String_comparison_exp
+  password: String_comparison_exp
+  problems: problem_bool_exp
+  role: String_comparison_exp
+}
+
+enum user_constraint {
+    user_email_key
+
+    user_name_key
+
+    user_pkey
+}
+
+input user_inc_input {
+  id: Int
+}
+
+input user_insert_input {
+  created_at: timestamptz
+  email: String
+  id: Int
+  name: String
+  password: String
+  problems: problem_arr_rel_insert_input
+  role: String
+}
+
+type user_max_fields {
+  created_at: timestamptz
+  email: String
+  id: Int
+  name: String
+  password: String
+  role: String
+}
+
+input user_max_order_by {
+  created_at: order_by
+  email: order_by
+  id: order_by
+  name: order_by
+  password: order_by
+  role: order_by
+}
+
+type user_min_fields {
+  created_at: timestamptz
+  email: String
+  id: Int
+  name: String
+  password: String
+  role: String
+}
+
+input user_min_order_by {
+  created_at: order_by
+  email: order_by
+  id: order_by
+  name: order_by
+  password: order_by
+  role: order_by
+}
+
+type user_mutation_response {
+    affected_rows: Int!
+
+    returning: [user!]!
+}
+
+input user_obj_rel_insert_input {
+  data: user_insert_input!
+  on_conflict: user_on_conflict
+}
+
+input user_on_conflict {
+  constraint: user_constraint!
+  update_columns: [user_update_column!]!
+  where: user_bool_exp
+}
+
+input user_order_by {
+  created_at: order_by
+  email: order_by
+  id: order_by
+  name: order_by
+  password: order_by
+  problems_aggregate: problem_aggregate_order_by
+  role: order_by
+}
+
+enum user_select_column {
+    created_at
+
+    email
+
+    id
+
+    name
+
+    password
+
+    role
+}
+
+input user_set_input {
+  created_at: timestamptz
+  email: String
+  id: Int
+  name: String
+  password: String
+  role: String
+}
+
+type user_stddev_fields {
+  id: Float
+}
+
+input user_stddev_order_by {
+  id: order_by
+}
+
+type user_stddev_pop_fields {
+  id: Float
+}
+
+input user_stddev_pop_order_by {
+  id: order_by
+}
+
+type user_stddev_samp_fields {
+  id: Float
+}
+
+input user_stddev_samp_order_by {
+  id: order_by
+}
+
+type user_sum_fields {
+  id: Int
+}
+
+input user_sum_order_by {
+  id: order_by
+}
+
+enum user_update_column {
+    created_at
+
+    email
+
+    id
+
+    name
+
+    password
+
+    role
+}
+
+type user_var_pop_fields {
+  id: Float
+}
+
+input user_var_pop_order_by {
+  id: order_by
+}
+
+type user_var_samp_fields {
+  id: Float
+}
+
+input user_var_samp_order_by {
+  id: order_by
+}
+
+type user_variance_fields {
+  id: Float
+}
+
+input user_variance_order_by {
+  id: order_by
+}
+
+scalar uuid
+
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}
+

@@ -1,0 +1,65 @@
+div[class$="-field"] {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+label[class$="-label"] {
+  justify-content: space-between;
+}
+
+.label-name {
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+}
+
+.label-value {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+label {
+  width: 60px;
+}
+
+.mat-button-toggle-group {
+  border: 0;
+
+  .mat-button-toggle {
+    height: 45px;
+    border-left: 0;
+    margin-right: 15px;
+  }
+}
+
+.search-input {
+  width: 300px;
+  height: 36px;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.search-panel-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.search-panel-collapse-btn {
+  margin-top: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  opacity: 50%;
+
+  &:hover {
+    opacity: 100%;
+  }
+}
+
+.reset-btn {
+  margin-right: 10px;
+}

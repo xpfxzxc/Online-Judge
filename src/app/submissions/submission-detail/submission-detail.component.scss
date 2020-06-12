@@ -1,0 +1,43 @@
+:host {
+  display: flex;
+}
+
+h2 {
+  margin: 0;
+}
+
+.left-side {
+  .mat-card {
+    padding: 32px 40px;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+  }
+}
+
+.submission-issue {
+  margin: 20px 0;
+}
+
+.submission-status {
+  font-size: 28px;
+}
+
+.test-point-table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.mat-header-cell,
+.mat-cell {
+  text-align: center;
+}
+
+.test-point-status {
+  font-weight: 500;
+}
+
+.submission-code {
+  margin-top: 20px;
+}

@@ -1,0 +1,54 @@
+.submission-search-panel {
+  padding: 32px 40px;
+}
+
+.submission {
+  margin-top: 20px;
+}
+
+.above-submission {
+  padding-top: 10px;
+  overflow: hidden;
+}
+
+.only-myself-slide-toggle {
+  float: right;
+  margin-right: 20px;
+}
+
+.submission-table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.mat-header-cell,
+.mat-cell {
+  text-align: center;
+}
+
+.mat-header-cell,
+.mat-cell {
+  &.mat-column-status {
+    width: 130px;
+  }
+
+  &.mat-column-score,
+  &.mat-column-time-usage,
+  &.mat-column-memory-usage,
+  &.mat-column-language {
+    width: 90px;
+  }
+
+  &.mat-column-submitted-at {
+    width: 130px;
+  }
+}
+
+.submission-status {
+  font-weight: 500;
+
+  span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

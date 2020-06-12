@@ -1,0 +1,72 @@
+<div class="search-field">
+  <label class="label-name search-label">
+    <span class="text">搜索</span>
+    <span class="colon">：</span>
+  </label>
+  <div class="label-value search-bar">
+    <input type="search" class="search-input" placeholder="请输入题目编号或标题" autocomplete="off">
+    <button mat-raised-button color="primary">
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div class="difficulty-field" [class.display-none]="isSearchPanelCollapsed">
+  <label class="label-name difficulty-label">
+    <span class="text">难度</span>
+    <span class="colon">：</span>
+  </label>
+  <div class="label-value">
+    <mat-button-toggle-group value="all" multiple>
+      <mat-button-toggle value="all">全部</mat-button-toggle>
+      <mat-button-toggle *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" value="{{ i }}">
+        {{ i }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
+
+<div class="progress-field" [class.display-none]="isSearchPanelCollapsed">
+  <label class="label-name progress-label">
+    <span class="text">做过</span>
+    <span class="colon">：</span>
+  </label>
+  <div class="label-value">
+    <mat-button-toggle-group value="all" multiple>
+      <mat-button-toggle value="all">全部</mat-button-toggle>
+      <mat-button-toggle value="todo">未做过</mat-button-toggle>
+      <mat-button-toggle value="attempted">未解决</mat-button-toggle>
+      <mat-button-toggle value="solved">已解答</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
+
+<div class="tags-field" [class.display-none]="isSearchPanelCollapsed">
+  <label class="label-name tags-label">
+    <span class="text">标签</span>
+    <span class="colon">：</span>
+  </label>
+  <div class="label-value">
+    <mat-form-field floatLabel="never">
+      <mat-select multiple placeholder="请选择标签名称">
+        <mat-option>
+          <ngx-mat-select-search placeholderLabel="请输入标签名称"></ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let tag of tags" [value]="tag.id">
+          {{ tag.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="search-panel-footer">
+  <span class="mat-color-grey-500">共计 {{ resultsCount }} 条结果</span>
+  <span class="text-btn reset-btn" [class.display-none]="isSearchPanelCollapsed">清除所有筛选条件</span>
+</div>
+
+<div class="search-panel-collapse-btn text-center" (click)="toggleSearchPanel()">
+  <mat-icon *ngIf="isSearchPanelCollapsed">keyboard_arrow_down</mat-icon>
+  <mat-icon *ngIf="!isSearchPanelCollapsed">keyboard_arrow_up</mat-icon>
+  {{ isSearchPanelCollapsed ? '显示' : '隐藏' }}高级搜索选项
+</div>

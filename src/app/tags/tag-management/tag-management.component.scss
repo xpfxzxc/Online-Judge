@@ -1,0 +1,32 @@
+.tag-management {
+  padding: 32px 40px;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+.tag-management-header {
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-top: 20px;
+}
+
+.new-tag-form {
+  margin-top: 10px;
+
+  .mat-form-field {
+    width: 300px;
+  }
+}
+
+.tag-list {
+  margin-top: 20px;
+}
+
+.tag-editor {
+  display: block;
+}

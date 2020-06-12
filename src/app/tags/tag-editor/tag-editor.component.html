@@ -1,0 +1,13 @@
+<ng-container *ngIf="!editing; else editor">
+  <span>{{ tag.name }}</span>
+  <button mat-icon-button (click)="edit()"><mat-icon>edit</mat-icon></button>
+</ng-container>
+<ng-template #editor>
+  <mat-form-field color="primary">
+    <input type="text" matInput [formControl]="tagName" [readonly]="loading">
+  </mat-form-field>
+  <button mat-icon-button (click)="update()" [disabled]="loading">
+    <mat-icon>check</mat-icon>
+  </button>
+</ng-template>
+<button mat-icon-button (click)="editing ? editing = false : delete()" [disabled]="loading"><mat-icon>clear</mat-icon></button>

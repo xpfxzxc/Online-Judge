@@ -1,0 +1,65 @@
+<div class="left-side">
+  <mat-card class="contest-detail mat-elevation-z2">
+    <div class="contest-detail-header">
+      <h1># {{ contest.id }} {{ contest.title }}</h1>
+      <button mat-raised-button color="primary" [disabled]="isRegistered || (now$ | async) >= contest.startingTime" (click)="isRegistered = true">{{ isRegistered ? '已报名': '报名' }}</button>
+    </div>
+    <markdown [data]="contest.description" katex></markdown>
+  </mat-card>
+  
+  <mat-card class="contest-problemset mat-elevation-z2">
+    <h3>题目</h3>
+    <table mat-table [dataSource]="contest.problemset" class="contest-problem-table">
+      <ng-container matColumnDef="submission-score">
+        <th mat-header-cell *matHeaderCellDef>分数</th>
+        <td mat-cell *matCellDef="let problem;">-</td>
+      </ng-container>
+
+      <ng-container matColumnDef="last-submitted-at">
+        <th mat-header-cell *matHeaderCellDef>最后提交于</th>
+        <td mat-cell *matCellDef="let problem;">-</td>
+      </ng-container>
+
+      <ng-container matColumnDef="problem-title">
+        <th mat-header-cell *matHeaderCellDef>题目</th>
+        <td mat-cell *matCellDef="let problem;">#{{ problem.num }} <span class="link">{{ problem.title }}</span></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+    </table>
+  </mat-card>
+</div>
+
+<div class="right-side" *ngIf="!isRightSidePanelHidden">
+  <mat-card class="contest-actions mat-elevation-z0 floating-effect">
+    <mat-action-list color="primary">
+      <button mat-list-item><mat-icon color="primary">edit</mat-icon> 编辑比赛</button>
+      <mat-divider></mat-divider>
+      <button mat-list-item routerLink="./scoreboard"><mat-icon color="primary">equalizer</mat-icon> 成绩表</button>
+      <button mat-list-item><mat-icon color="primary">flag</mat-icon> 所有提交</button>
+    </mat-action-list>
+  </mat-card>
+
+  <mat-card class="contest-info mat-elevation-z0 floating-effect">
+    <h3>信息</h3>
+    <dl class="mat-body metadata">
+      <dt>状态</dt>
+      <ng-container *ngIf="(now$ | async) as now;">
+        <dd *ngIf="now < contest.startingTime">未开始</dd>
+        <dd *ngIf="now >= contest.startingTime && now < contest.endTime">已开始</dd>
+        <dd *ngIf="now >= contest.endTime">已结束</dd>
+      </ng-container>
+      <dt>题目</dt>
+      <dd>{{ contest.problemset.length }}</dd>
+      <dt>开始于</dt>
+      <dd>{{ contest.startingTime | amLocale:"zh-cn" | amDateFormat: 'YYYY-MM-DD HH:mm' }}</dd>
+      <dt>结束于</dt>
+      <dd>{{ contest.endTime | amLocale:"zh-cn" | amDateFormat: 'YYYY-MM-DD HH:mm' }}</dd>
+      <dt>持续时间</dt>
+      <dd>{{ (contest.endTime - contest.startingTime) / 3600000 | number: '1.1-1' }} 小时</dd>
+      <dt>参赛人数</dt>
+      <dd>{{ contest.userCount }}</dd>
+    </dl>
+  </mat-card>
+</div>

@@ -1,0 +1,38 @@
+.ranking {
+  padding: 32px 40px;
+}
+
+.ranking-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+h1 {
+  margin: 0;
+}
+
+.user-query {
+  display: flex;
+  align-items: center;
+}
+
+.user-name-input {
+  width: 200px;
+  height: 36px;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.leaderboard {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.mat-header-cell,
+.mat-cell {
+  text-align: center;
+}
+
+.mat-cell.mat-column-accepted-count {
+  font-weight: 500;
+}

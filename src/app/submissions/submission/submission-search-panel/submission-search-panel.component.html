@@ -1,0 +1,23 @@
+<div class="problem-field">
+  <label for="problem-input">题目：</label>
+  <input type="text" id="problem-input" autocomplete="off">
+</div>
+<div class="author-field">
+  <label for="author-input">提交者：</label>
+  <input type="text" id="author-input" autocomplete="off">
+</div>
+<div class="language-field">
+  <label for="language-select">语言：</label>
+  <select id="language-select">
+    <option value="" selected>全部</option>
+    <option value="cpp">cpp</option>
+  </select>
+</div>
+<div class="status-field">
+  <label for="status-select">状态：</label>
+  <select id="status-select">
+    <option value="" selected>全部</option>
+    <option *ngFor="let status of statuses" value="{{ status }}">{{ status }}</option>
+  </select>
+</div>
+<button mat-raised-button color="primary" class="search-btn"><mat-icon>search</mat-icon> 搜索</button>

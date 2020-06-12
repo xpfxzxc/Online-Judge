@@ -1,0 +1,25 @@
+<form [formGroup]="signUpForm" class="sign-up-form">
+  <mat-form-field>
+    <input matInput placeholder="用户名" formControlName="name" required autocomplete="username">
+    <mat-hint>2 ~ 25 个任意字符，前后不含空格</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input type="password" matInput placeholder="密码" formControlName="password" required autocomplete="new-password">
+    <mat-hint>至少 8 个字符</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input type="password" matInput placeholder="确认密码" formControlName="passwordConfirmation" required autocomplete="new-password">
+    <mat-error *ngIf="signUpForm.get('passwordConfirmation').errors?.passwordConfirmation">两次密码输入不一致</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input type="email" matInput placeholder="邮箱地址" formControlName="email" required>
+    <mat-error *ngIf="signUpForm.get('email').errors?.pattern">邮箱地址不合法</mat-error>
+  </mat-form-field>
+
+  <oj-spinner-btn class="sign-up-btn" (loading)="loading">
+    <button mat-raised-button color="primary" [disabled]="loading" (click)="submit()">注册</button>
+  </oj-spinner-btn>
+</form>

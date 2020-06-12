@@ -1,0 +1,27 @@
+.contest-scoreboard {
+  padding: 32px 40px;
+}
+
+.contest-score-table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.mat-header-cell,
+.mat-cell {
+  text-align: center;
+
+  &.mat-column-rank {
+    width: 120px;
+    text-align: left;
+  }
+
+  &.mat-column-user-name {
+    width: 180px;
+    text-align: left;
+  }
+}
+
+span {
+  display: block;
+}

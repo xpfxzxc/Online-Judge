@@ -1,0 +1,78 @@
+<div class="left-side">
+  <mat-card class="submission-detail mat-elevation-z2">
+    <h2>评测状态：<span
+      class="submission-status"
+      [class.success]="Status.isSuccess(submission.status)"
+      [class.warn]="Status.isWarn(submission.status)"
+      [class.error]="Status.isError(submission.status)"
+    >{{ submission.status }}</span></h2>
+
+    <pre *ngIf="submission.issue"></pre>
+
+    <table *ngIf="submission.testPoints" mat-table [dataSource]="submission.testPoints" class="test-point-table">
+      <ng-container matColumnDef="case">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let i = index;">{{ i + 1 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>状态</th>
+        <td mat-cell *matCellDef="let testPoint;">
+          <span class="test-point-status"
+          [class.success]="Status.isSuccess(testPoint.status)"
+          [class.warn]="Status.isWarn(testPoint.status)"
+          [class.error]="Status.isError(testPoint.status)">
+            {{ testPoint.status }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="score">
+        <th mat-header-cell *matHeaderCellDef>得分</th>
+        <td mat-cell *matCellDef="let testPoint;">{{ testPoint.score }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="time-usage">
+        <th mat-header-cell *matHeaderCellDef>耗时</th>
+        <td mat-cell *matCellDef="let testPoint;">{{ testPoint.timeUsage }} ms</td>
+      </ng-container>
+
+      <ng-container matColumnDef="memory-usage">
+        <th mat-header-cell *matHeaderCellDef>内存占用</th>
+        <td mat-cell *matCellDef="let testPoint;">{{ testPoint.memoryUsage * 1024 | filesize: { standard: 'iec' } }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+    </table>
+  </mat-card>
+  
+  <mat-card class="submission-code mat-elevation-z2">
+    <h3>代码</h3>
+    <markdown [data]="markdown"></markdown>
+  </mat-card>
+</div>
+
+<div *ngIf="!isRightSidePanelHidden" class="right-side">
+  <mat-card class="submission-info mat-elevation-z0 floating-effect">
+    <h3>信息</h3>
+    <dl class="mat-body metadata">
+      <dt>提交者</dt>
+      <dd><a [routerLink]="['/users', submission.user.id]" class="link">{{ submission.user.name }}</a></dd>
+      <dt>题目</dt>
+      <dd><a [routerLink]="['/problems', submission.problem.id]" class="link">{{ submission.problem.title }}</a></dd>
+      <dt>语言</dt>
+      <dd>{{ submission.code.lang }}</dd>
+      <dt>提交时间</dt>
+      <dd><span matTooltip="{{ submission.submittedAt | amLocale: 'zh-cn' | amDateFormat: 'YYYY-MM-DD HH:mm' }}" matTooltipPosition="above">
+        {{ submission.submittedAt | amLocale: 'zh-CN' | amTimeAgo }}
+      </span></dd>
+      <dt>分数</dt>
+      <dd>{{ submission.score === null ? '-' : submission.score }}</dd>
+      <dt>总耗时</dt>
+      <dd>{{ submission.timeUsage !== null ? submission.timeUsage + ' ms' : '-' }}</dd>
+      <dt>峰值内存</dt>
+      <dd>{{ submission.memoryUsage !== null ? (submission.memoryUsage * 1024 | filesize: { standard: 'iec' }) : '-' }}</dd>
+    </dl>
+  </mat-card>
+</div>

@@ -1,0 +1,25 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-form-field {
+  margin-bottom: 12px;
+
+  input {
+    font-size: 16px;
+    letter-spacing: 0.8px;
+  }
+}
+
+.mat-checkbox {
+  margin: 8px 0;
+}
+
+.login-btn {
+  margin-top: 15px;
+
+  button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,107 @@
+.problem-edit {
+  padding: 32px 40px;
+}
+
+h1 {
+  margin: 0;
+}
+
+.problem-edit-header {
+  margin-bottom: 20px;
+}
+
+label,
+textarea,
+input {
+  display: block;
+}
+
+label {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+textarea,
+input[type="text"] {
+  width: 100%;
+  padding: 5px 5px 5px 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+input[type="file"] {
+  padding: 5px 5px 5px 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+textarea {
+  height: 120px;
+  min-height: 36px;
+  resize: vertical;
+}
+
+input[type="text"] {
+  height: 36px;
+}
+
+#description {
+  height: 240px;
+}
+
+.sample-header {
+  margin-bottom: 5px;
+
+  label,
+  span {
+    display: inline;
+  }
+
+  label {
+    font-size: 12px;
+    padding-right: 10px;
+  }
+
+  span {
+    cursor: pointer;
+  }
+}
+
+.sample-input-output {
+  display: flex;
+  justify-content: space-between;
+
+  textarea {
+    width: 49%;
+    height: 80px;
+    font-size: 14px;
+  }
+}
+
+.add-sample-btn {
+  margin-bottom: 15px;
+}
+
+.tags-chip-list {
+  width: 100%;
+}
+
+.mat-slider-horizontal {
+  min-width: 250px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.problem-edit-actions {
+  margin-top: 20px;
+  text-align: center;
+
+  .mat-icon {
+    width: 18px;
+    height: 16px;
+    font-size: 16px;
+  }
+}
